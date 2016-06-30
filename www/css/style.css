@@ -1,0 +1,228 @@
+/* Empty. Add your own CSS if you like */
+/* Utilities */
+
+.item-icon-left .icon, .item-icon-right .icon{
+    font-size: 43px !important;
+    color: #ffc900;
+}
+
+.font-large{
+    font-size: 75px;
+}
+
+.text-center i.ion-information-circled{
+    font-size: 25px;
+    color: #444;
+}
+
+.home-profile .icon-profile i {
+    position: absolute;
+    text-align: center;
+    right: 0px;
+    left: 0px;
+    color: #fff;
+}
+
+.home-profile h4{
+    color: #444;
+    font-size: 22px;
+    margin: 5px !important;
+}
+
+.home-profile h5{
+    font-size: 18px;
+    font-weight: bold;
+    color: #5bade8;
+}
+
+.home-profile .icon-profile{
+    margin-top: 5px !important;
+    background-color: #5bade8;
+    border-radius: 100%;
+    margin: auto;
+    width: 85px;
+    height: 85px; 
+}
+
+.title-bordered {
+    border-top: solid 2px #bbb;
+    padding-top: 30px;
+}
+
+p {
+    color: #555;
+    margin: 0 0 25px;
+}
+
+.no-border {
+    border: none;
+}
+
+.no-border-bg{
+    border: 0px;
+    border-color: transparent;
+    border-top: transparent;
+    border-bottom: transparent;
+    background-image: none !important; 
+}
+
+.static {
+    position: static;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.border-top {
+    border-top: solid 1px #ccc;
+    padding-top: 30px;
+}
+
+.blue-grey-900 {
+    background-color: #263238 !important;
+    color: #fff;
+}
+
+/* Menu */
+
+.menu .bar.bar-header.expanded {
+    background-image: url('../img/material6.jpg');
+    background-size: 120%;
+    background-position: 0%;
+    transition: all .5s ease-in-out;
+}
+
+.menu.menu-left * {
+    font-weight: normal;
+}
+
+.item-radio input:checked ~ .item-content {
+    background: transparent;
+}
+
+.menu-open .ion-navicon {
+    transform: rotate(-360deg);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.menu-open .ion-navicon:before {
+    content: "\f2ca";
+}
+
+.item.item-radio .radio-icon {
+    opacity: 1;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.item.item-radio:active .radio-icon {
+    opacity: 0;
+    transform: scale(1.6);
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+.directions.button-bar {
+    margin: 0 auto;
+    width: 33.333%;
+}
+
+.directions.button-bar button {
+    line-height: 26px;
+}
+
+.ion-arrow-right-c.top-left:before {
+    transform: rotate(-135deg);
+}
+
+.ion-arrow-right-c.top-right:before {
+    transform: rotate(-45deg);
+}
+
+.ion-arrow-right-c.bottom-left:before {
+    transform: rotate(-225deg);
+}
+
+.ion-arrow-right-c.bottom-right:before {
+    transform: rotate(45deg);
+}
+
+.popover {
+    left: initial !important;
+    right: 16px !important;
+    top: 16px !important;
+}
+
+.platform-android .popover{
+    margin-top:10px;
+}
+
+.title.title-left.header-item{
+    left: 48px !important;
+}
+
+.menu .avatar{
+    width:60px !important;
+    height:60px !important;
+    top: 40px;
+}
+
+.bar.bar-profile {
+    background-color: #5bade8;
+    height: 170px;
+}
+
+.bar.bar-profile img{
+    border: 2px solid #c5c5c5;
+}
+
+.bar .profile {
+    padding-top: 35px;
+}
+
+.menu .has-header{
+    top: 152px;
+}
+
+.button-fab i{
+    color: #fff;
+}
+
+.bar .button{
+    width: 48px !important;
+    min-height: 49px !important;
+}
+
+.bar .button.button-fab, .button.button-fab{
+    width: 56px !important;
+    height: 56px !important;
+}
+
+.menu-list{
+    font-size: 15px;
+}
+.menu-list i{
+    padding-right: 6px;
+    color: #5bade8;
+    font-size: 20px !important;
+}
+
+.bar-subheader.custom{
+  height: 228px !important;
+  border: none;
+}
+
+.has-subheader-custom {
+    top: 279px !important;
+}
+
+.footer-bar-custom > h4{
+    width: 100%;
+    color: #202020;
+    font-size: 16px;
+    padding-left:19px;
+    padding-top: 5px;
+}
+
