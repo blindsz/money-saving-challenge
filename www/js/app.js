@@ -21,6 +21,16 @@
 	        controller: 'MenuController'
 	    })
 
+		.state('app.introduction', {
+	        url: '/introduction',
+	        views: {
+	            'main': {
+	                templateUrl: 'templates/introduction/index.html'
+	                // controller: 'IntroductionController'
+	            }
+	        }
+	    })
+
 		.state('app.home', {
 	        url: '/home',
 	        views: {
@@ -81,7 +91,8 @@
 	        }
 	    });
 		
-		$urlRouterProvider.otherwise('/app/home');
+		$urlRouterProvider.otherwise('/app/introduction');
+		
 	})
 
 	.run(function ($ionicPlatform) {

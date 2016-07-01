@@ -86,13 +86,6 @@ p {
 
 /* Menu */
 
-.menu .bar.bar-header.expanded {
-    background-image: url('../img/material6.jpg');
-    background-size: 120%;
-    background-position: 0%;
-    transition: all .5s ease-in-out;
-}
-
 .menu.menu-left * {
     font-weight: normal;
 }
@@ -171,11 +164,13 @@ p {
 
 .bar.bar-profile {
     background-color: #5bade8;
-    height: 170px;
+    height: 155px;
+    color: #fff;
 }
 
 .bar.bar-profile img{
-    border: 2px solid #c5c5c5;
+    border: 1px solid #fff;
+    box-shadow: 0 2px 5px 0 #fff;
 }
 
 .bar .profile {
@@ -183,7 +178,7 @@ p {
 }
 
 .menu .has-header{
-    top: 152px;
+    top: 155px;
 }
 
 .button-fab i{
@@ -226,3 +221,9 @@ p {
     padding-top: 5px;
 }
 
+.introdution-button button{
+    margin: 0px auto;
+    text-align: center;
+    right: 0px;
+    left: 0px;
+}

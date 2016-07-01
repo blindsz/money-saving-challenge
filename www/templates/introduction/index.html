@@ -1,0 +1,37 @@
+﻿<ion-view hide-nav-bar="true">
+	<ion-content>
+		<div class="bar bar-header bar-positive" style="position: static;">
+		    <div class="h1 title title-left light">Welcome to 365 Day Challenge</div>
+		</div>
+		<div class="list list-inset">
+	  		<label class="item item-input item-stacked-label">
+		    	<span class="input-label">Please enter your account name</span>
+	    		<input type="text" placeholder="Account Name">
+	  		</label>
+		</div>
+		
+		<div class="item item-divider">
+    		Account Options
+  		</div>
+  		</div>
+		<ion-list>
+			<div class="list list-inset">
+				<div class="title padding-bottom">How would you like to save? </div>
+			  	<ion-checkbox ng-model="filter.red" class="item-text-wrap">In order, starting at 1 penny on the first day and adding $3.65 on the last day? </ion-checkbox>
+			  	<ion-checkbox ng-model="filter.yellow" class="item-text-wrap">In reverse, starting at $3.65 on the first day and ending with $.01 on the last day? </ion-checkbox>
+			  	<ion-checkbox ng-model="filter.pink" class="item-text-wrap">Randomly checking off all the amounts in a year?</ion-checkbox>
+		  	</div>
+
+		</ion-list>
+
+	</ion-content>
+	<ion-footer-bar>
+  		<div class="bar bar-footer no-border-bg">
+            <div class="buttons buttons-right introdution-button">
+                <button class="button button-positive button-fab" ui-sref="app.home" nav-clear menu-close >
+                    <i class="icon ion-android-done light"></i>
+                </button>
+            </div>
+        </div>
+	</ion-footer-bar>
+</ion-view>
