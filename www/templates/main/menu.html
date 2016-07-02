@@ -7,7 +7,7 @@
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
             </ion-nav-buttons>
             <ion-nav-buttons side="right">
-                <button class="button button-icon button-clear ion-android-more-vertical" ng-click="popover.show($event)"></button>
+                <button class="button button-icon button-clear ion-refresh"></button>
             </ion-nav-buttons>
         </ion-nav-bar>
         <ion-nav-view name="main"></ion-nav-view>
@@ -19,8 +19,8 @@
         </ion-header-bar>
         <ion-content>
             <ion-list>
-                <ion-item nav-clear class="menu-list" menu-close href="#/app">
-                    <i class="icon ion-android-home bg-menu" ui-sref="app.home"></i> Home
+                <ion-item nav-clear class="menu-list" menu-close ui-sref="app.home">
+                    <i class="icon ion-android-home bg-menu"></i> Home
                 </ion-item>
                 <ion-item nav-clear class="menu-list" ui-sref="app.achievements" menu-close href="#/app">
                     <i class="icon ion-star bg-menu"></i> Achievements

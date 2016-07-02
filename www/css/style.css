@@ -1,5 +1,17 @@
 /* Empty. Add your own CSS if you like */
 /* Utilities */
+input::-moz-placeholder, textarea::-moz-placeholder{
+    color: #444;
+}
+
+.overflow-hidden{
+    overflow: hidden;
+}
+
+.title-preferences{
+    color:#444; 
+    font-weight:bold;
+}
 
 .item-icon-left .icon, .item-icon-right .icon{
     font-size: 43px !important;
@@ -63,6 +75,13 @@ p {
     border-color: transparent;
     border-top: transparent;
     border-bottom: transparent;
+    background-image: none !important; 
+}
+
+.border-top-bottom{
+    border-color:#f1f1f1 !important;
+    border-bottom: 1px solid #f1f1f1 !important;
+    border-top: 1px solid #f1f1f1 !important;
     background-image: none !important; 
 }
 
@@ -215,15 +234,9 @@ p {
 
 .footer-bar-custom > h4{
     width: 100%;
-    color: #202020;
+    color: #666;
     font-size: 16px;
     padding-left:19px;
     padding-top: 5px;
 }
 
-.introdution-button button{
-    margin: 0px auto;
-    text-align: center;
-    right: 0px;
-    left: 0px;
-}

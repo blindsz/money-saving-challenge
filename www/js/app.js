@@ -21,12 +21,12 @@
 	        controller: 'MenuController'
 	    })
 
-		.state('app.introduction', {
-	        url: '/introduction',
+		.state('app.preferences', {
+	        url: '/preferences',
 	        views: {
 	            'main': {
-	                templateUrl: 'templates/introduction/index.html'
-	                // controller: 'IntroductionController'
+	                templateUrl: 'templates/preferences/index.html',
+	                controller: 'PreferencesController'
 	            }
 	        }
 	    })
@@ -91,8 +91,21 @@
 	        }
 	    });
 		
-		$urlRouterProvider.otherwise('/app/introduction');
-		
+
+	    $urlRouterProvider.otherwise(function ($injector, $location){
+	    	var isInstalled = true;
+	   		var state = $injector.get('$state');
+
+	   		if(!isInstalled){
+	     		state.go('app.preferences');
+	   		}
+	   		else{
+		     	state.go('app.home');
+		   	}
+	   		return $location.path();
+		});
+
+		// $urlRouterProvider.otherwise('/app/home');		
 	})
 
 	.run(function ($ionicPlatform) {
