@@ -1,19 +1,19 @@
 ﻿<div class="list">
 	<label class="item item-input">
 		<i class="icon ion-android-person placeholder-icon"></i>
-    	<input type="text" ng-model="accountOptions.name" placeholder="Please enter an account name">
+    	<input type="text" ng-model="accountSettings.name" placeholder="Please enter an account name">
 	</label>
 </div>
 <div class="list overflow-hidden">
 	<div class="title title-preferences padding-bottom padding-left ">
 		How would you like to save?
 	</div>
-  	<ion-radio ng-model="accountOptions.inOrder" ng-value="1" class="item-text-wrap">
+  	<ion-radio ng-model="accountSettings.inOrder" ng-value="1" class="item-text-wrap">
   		In order, starting at 1 penny on the first day and adding $3.65 on the last day? </ion-radio>
-  	<ion-radio ng-model="accountOptions.inReverse" ng-value="1" class="item-text-wrap">
+  	<ion-radio ng-model="accountSettings.inReverse" ng-value="2" class="item-text-wrap">
   		In reverse, starting at $3.65 on the first day and ending with $.01 on the last day? 
   	</ion-radio>
-  	<ion-radio ng-model="accountOptions.random" ng-value="1" class="item-text-wrap">
+  	<ion-radio ng-model="accountSettings.random" ng-value="3" class="item-text-wrap">
   		Randomly checking off all the amounts in a year?
   	</ion-radio>
 </div>

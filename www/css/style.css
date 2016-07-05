@@ -19,7 +19,7 @@ input::-moz-placeholder, textarea::-moz-placeholder{
 }
 
 .font-large{
-    font-size: 75px;
+    font-size: 55px;
 }
 
 .text-center i.ion-information-circled{
@@ -35,14 +35,20 @@ input::-moz-placeholder, textarea::-moz-placeholder{
     color: #fff;
 }
 
-.home-profile h4{
+.home-profile .row h4{
     color: #444;
-    font-size: 22px;
-    margin: 5px !important;
-}
-
-.home-profile h5{
     font-size: 18px;
+    margin: 5px !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100px;
+    text-align: center;
+    margin: 0px auto !important;
+}
+`
+.home-profile .row h5{
+    font-size: 16px;
     font-weight: bold;
     color: #5bade8;
 }
@@ -52,8 +58,34 @@ input::-moz-placeholder, textarea::-moz-placeholder{
     background-color: #5bade8;
     border-radius: 100%;
     margin: auto;
-    width: 85px;
-    height: 85px; 
+    width: 70px;
+    height: 70px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+    border: 5px solid #fff;
+}
+
+.home-profile .current, .home-profile .next{
+    color: #444;
+    font-size: 11px;
+}
+
+.home-profile .current i::before, .home-profile .next i::before{
+    font-size: 16px;
+    background-color: #ffc900;
+    width:25px;
+    height: 25px;
+    border-radius: 100%;
+    line-height: 24px;
+    color: #fff;
+}
+
+.home-profile .current h4, .home-profile .next h4{
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.home-profile .card{
+    margin:0px !important;
 }
 
 .title-bordered {
@@ -188,7 +220,6 @@ p {
 }
 
 .bar.bar-profile img{
-    border: 1px solid #fff;
     box-shadow: 0 2px 5px 0 #fff;
 }
 
@@ -212,6 +243,14 @@ p {
 .bar .button.button-fab, .button.button-fab{
     width: 56px !important;
     height: 56px !important;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 4px;
+    margin: 0px auto;
+    text-align: center;
+    position: absolute;
+    right: 0px;
+    left: 0px;
 }
 
 .menu-list{
@@ -224,12 +263,12 @@ p {
 }
 
 .bar-subheader.custom{
-  height: 228px !important;
+  height: 235px !important;
   border: none;
 }
 
 .has-subheader-custom {
-    top: 279px !important;
+    top: 287px !important;
 }
 
 .footer-bar-custom > h4{

@@ -1,4 +1,4 @@
-﻿<ion-view view-title="Hi Jared!">
+﻿<ion-view view-title="{{ 'Hi ' + accountName + '!'}}">
 	<ion-header-bar class="bar bar-subheader custom">
 		<div class="row">
 		    <div class="col">
@@ -6,14 +6,27 @@
 		        	<div class="icon-profile">
 		        		<i class="icon ion-android-contact font-large"></i>
 		        	</div>
-		            <h4>Jared Jan</h4>
-		            <h5>$667.95</h5>
-		        </div>
+		        	<div class="row">
+					  	<div class="col current">
+					  		Current Milestone 
+					  		<div>
+					  			<i class="icon ion-ribbon-b"> </i> <strong>$0.01</strong>
+					  		</div>
+					  	</div>
+					  	<div class="col"><h4>Jared Jan</h4><h5>$667.95</h5></div>
+					  	<div class="col next">
+					  		Next Milestone
+					  		<div>
+					  			<i class="icon ion-ribbon-b"> </i> <strong>$0.02</strong>
+					  		</div>
+					  	</div>
+				  	</div>
+				</div>
 		    </div>
 		</div>
 		<div class="bar bar-footer bar-stable footer-bar-custom border-top-bottom">
 			<div class="buttons buttons-right">
-		        <button class="button button-positive button-fab" ng-click="showConfirm();">
+		        <button class="button button-dark button-fab" ng-click="addSavings();">
 		            <i class="icon ion-android-add"></i>
 		        </button>
 		    </div>
@@ -29,9 +42,9 @@
                 <i class="icon ion-ribbon-b"></i>
             </ion-item>
         </ion-list>
-        <div ng-show="!items.length" class="row">
-		    <div class="col">
-		        <div class="text-center">
+        <div ng-show="!items.length" class="row padding-top">
+		    <div class="col padding-top">
+		        <div class="text-center padding-top">
 		        	<i class="icon ion-information-circled"></i>
 		            <h5>You don't have savings yet. Start saving now!</h5>
 		        </div>

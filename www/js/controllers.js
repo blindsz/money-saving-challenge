@@ -1,59 +1,108 @@
 (function () {
 	angular.module("money-saving-challenge.controllers", [])
 
-	.controller("MenuController", function ($scope) {
+	.controller("PreferencesController", function ($scope, $ionicPopup, $ionicPlatform, $state, $ionicHistory, ionicToast, $cordovaToast, Storage) {  
 
-	    
+		$scope.accountSettings = {},
+		$scope.accountType;
+
+		$scope.showPreferences = function() {
+			$ionicPopup.show({
+				templateUrl: 'templates/preferences/preferences.html',
+		     	title: '<i class="icon ion-android-settings placeholder-icon"></i> Preferences Setup',
+		     	scope: $scope,
+		     	buttons: [{
+				    text: '<i class="ion-android-done"></i> Start saving challenge!',
+				    type: 'button-positive',
+				    onTap: function(e) {
+
+			        	if (!$scope.accountSettings.name) {
+			            	toast("Please enter an account name");
+			          		e.preventDefault();
+			          	}
+			          	else if(!$scope.accountSettings.inOrder && !$scope.accountSettings.inReverse && !$scope.accountSettings.random) {
+			          		toast("Please select type of account");
+			          		e.preventDefault();
+			          	}
+			          	else {
+			          		if($scope.accountSettings.inOrder !== undefined){
+			          			$scope.accountType = $scope.accountSettings.inOrder;
+			          		}
+			          		else if($scope.accountSettings.inReverse !== undefined){
+			          			$scope.accountType = $scope.accountSettings.inReverse;
+			          		}
+			          		else if($scope.accountSettings.random !== undefined){
+			          			$scope.accountType = $scope.accountSettings.random;
+			          		}
+
+			            	return { 
+			            		name: $scope.accountSettings.name,
+			            		accountType: $scope.accountType
+			            	}
+			        	}
+			    	}
+				}]
+
+		   	}).then(function(result) {
+		   		if(result){
+			   		Storage.settings.add(result);
+
+			   		Storage.goal.setup();
+
+			   		$ionicPlatform.registerBackButtonAction(function (){
+					    return; // do nothing
+					}, 401);
+
+			   		$ionicHistory.nextViewOptions({ 
+			   			disableBack: true
+			   		});
+
+					$state.go('app.home');
+				}
+		   	});
+		};
+
+		var toast = function (message) {
+			if(window.cordova) {
+				window.plugins.toast.showWithOptions({
+				    message: message,
+				    duration: "short", 
+				    position: "bottom",
+				    styling: {
+				      	opacity: 0.8,
+				      	cornerRadius: 100,
+				      	horizontalPadding: 25, 
+      					verticalPadding: 21 
+				    }
+				});
+		    }
+		    else {
+		    	ionicToast.show(message, 'bottom', false, 2000);
+		    }
+		};
 	})
 
-	.controller("HomeController", function ($scope, $ionicModal, ionicMaterialInk, $ionicPopup) {
+	.controller("HomeController", function ($scope, $ionicModal, ionicMaterialInk, $ionicPopup, AccountSavings, Storage) {
+
 		ionicMaterialInk.displayEffect();
+		$scope.items = AccountSavings.getAll();
 
-		var chats = [
-			{
-			    id: 0,
-			    name: 'Ben Sparrow',
-			    lastText: 'You on your way?',
-			    face: 'img/ben.png'
-		  	}, {
-			    id: 1,
-			    name: 'Max Lynx',
-			    lastText: 'Hey, it\'s me',
-			    face: 'img/max.png'
-			}, {
-			    id: 2,
-			    name: 'Adam Bradleyson',
-			    lastText: 'I should buy a boat',
-			    face: 'img/adam.jpg'
-			}, {
-			    id: 3,
-			    name: 'Perry Governor',
-			    lastText: 'Look at my mukluks!',
-			    face: 'img/perry.png'
-		  	}, {
-			    id: 4,
-			    name: 'Mike Harrington',
-			    lastText: 'This is wicked good ice cream.',
-			    face: 'img/mike.png'
-		  	}
-		];
+		Storage.settings.getAll().then(function (settings){
+			$scope.accountName = settings[0].account_name;
+		});
 
-		$scope.items = chats;
-		   
-
-	   	$scope.showConfirm = function() {
-			var confirmPopup = $ionicPopup.confirm({
+	   	$scope.addSavings = function() {
+			$ionicPopup.confirm({
 		     	title: 'Consume Ice Cream',
 		     	template: 'Are you sure you want to eat this ice cream sad sad asd asd as dasd?',
 		     	cancelText: 'No',
 		     	okText: 'Yes',
 		     	cancelType: 'button-dark',
 		     	okType: 'button-positive'
-		   	});
-
-		   	confirmPopup.then(function(result) {
+		   	}).then(function(result) {
 		     	if(result) {
 		       		console.log('You are sure');
+		       		// Storage.add();
 		     	} 
 		     	else {
 		       		console.log('You are not sure');
@@ -62,41 +111,4 @@
 		};
 	})
 
-	.controller("PreferencesController", function ($scope, $ionicPopup, $ionicPlatform, $state, $ionicHistory) {  
-
-		var disablePopupClose = $ionicPlatform.registerBackButtonAction(function(){
-		    return; // do nothing
-		}, 401);
-
-		var goTo = function (stateName) {
-			$state.go(stateName);
-		};
-
-		$scope.accountOptions = {};
-
-		$scope.showPopup = function() {
-			var showPopup = $ionicPopup.show({
-				templateUrl: 'templates/preferences/preferences.html',
-		     	title: '<i class="icon ion-android-settings placeholder-icon"></i> Preferences Setup',
-		     	scope: $scope,
-		     	buttons: [{
-				    text: '<i class="ion-android-done"></i> Start saving challenge!',
-				    type: 'button-positive',
-				}]
-		   	});
-
-		   	showPopup.then(function() {
-		   		console.log($scope.accountOptions);
-		   		disablePopupClose();
-		   		$ionicHistory.nextViewOptions({
-				    disableBack: true
-				});
-		   		goTo('app.home');
-
-		   	});
-		};
-
-
-
-	});
 })();
