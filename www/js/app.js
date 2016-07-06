@@ -15,10 +15,10 @@
 		$ionicPlatform.ready(function () {
 			Storage.init().then( function (){
 				Storage.settings.getAll().then(function (settings){
-					if(settings[0].app_status === APP_STATUS.appFirstRun){
+					if(settings.app_status === APP_STATUS.appFirstRun){
 						$state.go("app.preferences");
 					}
-					else if(settings[0].app_status === APP_STATUS.appAlreadyUsed){
+					else if(settings.app_status === APP_STATUS.appAlreadyUsed){
 						$state.go("app.home");
 					}
 				});
@@ -160,8 +160,8 @@
 				{ name: "account_name", type: "text" },
 				{ name: "account_type", type: "integer" },
 				{ name: "app_status", type: "integer"},
-				{ name: "date_started", type: "text"},
-				{ name: "date_finish", type: "text"}
+				{ name: "date_started", type: "integer"},
+				{ name: "date_finish", type: "integer"}
 			]
 		}, {
 			name: "reminder",

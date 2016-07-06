@@ -32,6 +32,7 @@
 						}
 						tx.executeSql(createTablesSql);
 					}
+					// tx.executeSql("INSERT INTO achievements (id, day, amount, status, created_at) VALUES (NULL, 2, 0.02, 'completed', 'asdsa')");
 					return deferred.resolve(true);
 				});
 				return deferred.promise;
@@ -42,17 +43,13 @@
 
 					db.transaction(function (tx) {
 						tx.executeSql("SELECT * FROM settings", [], function (tx, results){
-							var data = [];
 							if(results.rows.length == 0){
-								deferred.resolve([
-									{app_status: 0}
-								]);
+								deferred.resolve({
+									app_status: 0
+								});
 							}
 							else{
-								for(var i = 0; i < results.rows.length; i++) {
-									data.push(results.rows.item(i));
-								}
-								deferred.resolve(data);
+								deferred.resolve(results.rows.item(0));
 							}
 							
 						}, function (tx, error) {
@@ -93,7 +90,6 @@
 								var data = [];
 
 								if(accountType === ACCOUNT_TYPE.inOrder || accountType === ACCOUNT_TYPE.random){
-									
 									for(var i=1; i<DAYS_COUNT + 1; i++){
 										data.push({
 											day: i,
@@ -102,12 +98,12 @@
 									}
 
 									for(var i=0; i<data.length; i++){
-										tx.executeSql("INSERT INTO goals (id, day, amount) VALUES (NULL, '"+ data[i].day +"', '" + data[i].amount + "')");
+										tx.executeSql("INSERT INTO goals (id, day, amount) VALUES (NULL, '"+ data[i].day +"', '" + data[i].amount + "')", [], function (tx, results) {
+											deferred.resolve(true);
+										});
 									}
-
 								}
 								else if(accountType === ACCOUNT_TYPE.inReverse){
-									
 									for(var i=DAYS_COUNT; i>0; i--){
 										data.push({
 											day: DAYS_COUNT-i+1,
@@ -116,9 +112,10 @@
 									}
 
 									for(var i=0; i<data.length; i++){
-										tx.executeSql("INSERT INTO goals (id, day, amount) VALUES (NULL, '"+ data[i].day +"', '" + data[i].amount + "')");
+										tx.executeSql("INSERT INTO goals (id, day, amount) VALUES (NULL, '"+ data[i].day +"', '" + data[i].amount + "')", [], function (tx, results) {
+											deferred.resolve(true);
+										});
 									}
-
 								}
 
 							}, function(tx, error){
@@ -128,6 +125,49 @@
 						}, function (tx, error){
 							deferred.reject(error);
 						});
+					});
+					return deferred.promise;
+				},
+				getMilestone: function (day) {
+					var deferred = $q.defer();
+
+					db.transaction (function (tx){
+						tx.executeSql("SELECT * FROM goals WHERE day ='" + day + "' ", [], function (tx, results){
+							if(results.rows.length != 0){
+								deferred.resolve(results.rows.item(0));
+							}			
+						}, function (tx,error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
+
+				},
+				getAllSelected: function (){
+					var deferred = $q.defer(),
+						data = [];
+
+					db.transaction( function (tx){
+						tx.executeSql("SELECT * FROM goals WHERE day NOT IN (SELECT day FROM achievements)", [], function (tx, results){
+							for(var i=0; i<results.rows.length; i++){
+								data.push(results.rows.item(i));
+							}
+							deferred.resolve(data);
+						}, function (tx, error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
+				}
+			},
+			achievements: {
+				add: function () {
+					var deferred = $q.defer();
+
+					db.transaction ( function (tx) {
+						tx.executeSql()
+					}, function (tx, error){
+						deferred.reject(error);
 					});
 					return deferred.promise;
 				}

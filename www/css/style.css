@@ -8,14 +8,27 @@ input::-moz-placeholder, textarea::-moz-placeholder{
     overflow: hidden;
 }
 
+.font-normal{
+    font-weight: normal;
+}
 .title-preferences{
     color:#444; 
     font-weight:bold;
 }
 
-.item-icon-left .icon, .item-icon-right .icon{
+.has-subheader-custom .item-icon-left .icon,
+.has-subheader-custom .item-icon-right .icon{
     font-size: 43px !important;
     color: #ffc900;
+}
+
+.item-icon-left .icon, .item-icon-right .icon{
+    font-size: 27px;
+}
+
+.item-icon-left .icon{
+    left:11px;
+    color:#5bade8;
 }
 
 .font-large{
@@ -35,18 +48,6 @@ input::-moz-placeholder, textarea::-moz-placeholder{
     color: #fff;
 }
 
-.home-profile .row h4{
-    color: #444;
-    font-size: 18px;
-    margin: 5px !important;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 100px;
-    text-align: center;
-    margin: 0px auto !important;
-}
-`
 .home-profile .row h5{
     font-size: 16px;
     font-weight: bold;
@@ -67,6 +68,28 @@ input::-moz-placeholder, textarea::-moz-placeholder{
 .home-profile .current, .home-profile .next{
     color: #444;
     font-size: 11px;
+}
+
+.home-profile .current .text, 
+.home-profile .next .text{
+    height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 95%;
+    margin: 0px auto;
+}
+
+.home-profile .profile-account .text{
+    color: #444;
+    font-size: 18px;
+    margin: 5px !important;
+    height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 95%;
+    margin: 0px auto;
 }
 
 .home-profile .current i::before, .home-profile .next i::before{

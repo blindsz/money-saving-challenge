@@ -1,4 +1,4 @@
-﻿<ion-view view-title="{{ 'Hi ' + accountName + '!'}}">
+﻿<ion-view view-title="{{ 'Hi ' + accountInfo.name + '!'}}">
 	<ion-header-bar class="bar bar-subheader custom">
 		<div class="row">
 		    <div class="col">
@@ -8,16 +8,16 @@
 		        	</div>
 		        	<div class="row">
 					  	<div class="col current">
-					  		Current Milestone 
+					  		<div class="text">Current Milestone</div>
 					  		<div>
-					  			<i class="icon ion-ribbon-b"> </i> <strong>$0.01</strong>
+					  			<i class="icon ion-ribbon-b"> </i> <strong>{{ accountInfo.currentMilestone | currency }}</strong>
 					  		</div>
 					  	</div>
-					  	<div class="col"><h4>Jared Jan</h4><h5>$667.95</h5></div>
+					  	<div class="col profile-account"><h4 class="text">{{ accountInfo.name }}</h4><h5>$667.95</h5></div>
 					  	<div class="col next">
-					  		Next Milestone
+					  		<div class="text">Next Milestone</div>
 					  		<div>
-					  			<i class="icon ion-ribbon-b"> </i> <strong>$0.02</strong>
+					  			<i class="icon ion-ribbon-b"> </i> <strong>{{ accountInfo.nextMilestone | currency }}</strong>
 					  		</div>
 					  	</div>
 				  	</div>
