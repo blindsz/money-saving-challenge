@@ -8,8 +8,17 @@ input::-moz-placeholder, textarea::-moz-placeholder{
     overflow: hidden;
 }
 
-.font-normal{
+.selected{
+    background-color: #5bade8;
+    color: #fff !important;
     font-weight: normal;
+}
+.selected i.dark, .selected span.item-note{
+    color : #fff;
+}
+
+.font-normal{
+    font-weight: normal !important;
 }
 .title-preferences{
     color:#444; 
@@ -27,12 +36,19 @@ input::-moz-placeholder, textarea::-moz-placeholder{
 }
 
 .item-icon-left .icon{
-    left:11px;
-    color:#5bade8;
+    left: 5px;
+}
+
+.item-note{
+    color: #444;
 }
 
 .font-large{
     font-size: 55px;
+}
+
+.button i.small{
+    font-size: 100%;
 }
 
 .text-center i.ion-information-circled{
@@ -216,16 +232,6 @@ p {
     transform: rotate(45deg);
 }
 
-.popover {
-    left: initial !important;
-    right: 16px !important;
-    top: 16px !important;
-}
-
-.platform-android .popover{
-    margin-top:10px;
-}
-
 .title.title-left.header-item{
     left: 48px !important;
 }
@@ -267,7 +273,7 @@ p {
     width: 56px !important;
     height: 56px !important;
     border-style: solid;
-    border-color: #fff;
+    border-color: #f8f8f8;
     border-width: 4px;
     margin: 0px auto;
     text-align: center;

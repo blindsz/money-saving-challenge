@@ -2,7 +2,7 @@
 	angular.module("money-saving-challenge.services", [])
 
 
-	.factory("Storage", function ($q, $ionicPlatform, $cordovaSQLite, StorageConfig, APP_STATUS, DAYS_COUNT, ACCOUNT_TYPE) {
+	.factory("Storage", function ($q, $ionicPlatform, $cordovaSQLite, StorageConfig, APP_STATUS, DAYS_COUNT, ACCOUNT_TYPE, ACHIEVEMENT_STATUS) {
 		var db;
 
 		return {
@@ -77,7 +77,7 @@
 					return deferred.promise;
 				}
 			},
-			goal: {
+			milestones: {
 				setup: function (){
 					var deferred = $q.defer();
 
@@ -98,7 +98,7 @@
 									}
 
 									for(var i=0; i<data.length; i++){
-										tx.executeSql("INSERT INTO goals (id, day, amount) VALUES (NULL, '"+ data[i].day +"', '" + data[i].amount + "')", [], function (tx, results) {
+										tx.executeSql("INSERT INTO milestones (id, day, amount) VALUES (NULL, '"+ data[i].day +"', '" + data[i].amount + "')", [], function (tx, results) {
 											deferred.resolve(true);
 										});
 									}
@@ -112,7 +112,7 @@
 									}
 
 									for(var i=0; i<data.length; i++){
-										tx.executeSql("INSERT INTO goals (id, day, amount) VALUES (NULL, '"+ data[i].day +"', '" + data[i].amount + "')", [], function (tx, results) {
+										tx.executeSql("INSERT INTO milestones (id, day, amount) VALUES (NULL, '"+ data[i].day +"', '" + data[i].amount + "')", [], function (tx, results) {
 											deferred.resolve(true);
 										});
 									}
@@ -128,11 +128,11 @@
 					});
 					return deferred.promise;
 				},
-				getMilestone: function (day) {
+				get: function (day) {
 					var deferred = $q.defer();
 
 					db.transaction (function (tx){
-						tx.executeSql("SELECT * FROM goals WHERE day ='" + day + "' ", [], function (tx, results){
+						tx.executeSql("SELECT * FROM milestones WHERE day ='" + day + "' ", [], function (tx, results){
 							if(results.rows.length != 0){
 								deferred.resolve(results.rows.item(0));
 							}			
@@ -148,7 +148,7 @@
 						data = [];
 
 					db.transaction( function (tx){
-						tx.executeSql("SELECT * FROM goals WHERE day NOT IN (SELECT day FROM achievements)", [], function (tx, results){
+						tx.executeSql("SELECT * FROM milestones WHERE day NOT IN (SELECT day FROM achievements)", [], function (tx, results){
 							for(var i=0; i<results.rows.length; i++){
 								data.push(results.rows.item(i));
 							}
@@ -161,56 +161,54 @@
 				}
 			},
 			achievements: {
-				add: function () {
+				add: function (data) {
 					var deferred = $q.defer();
 
 					db.transaction ( function (tx) {
-						tx.executeSql()
-					}, function (tx, error){
-						deferred.reject(error);
+						tx.executeSql("INSERT INTO achievements " + 
+							" (id, day, amount, status, created_at) " +
+					 " VALUES (NULL, '" + data.day +"', '" + data.amount + "', '" + ACHIEVEMENT_STATUS.completed + "', '" + moment() + "') ", [], function (tx, results){
+					 		deferred.resolve(results.insertId);
+						}, function (tx, error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
+				},
+				getAll: function (){
+					var deferred = $q.defer(),
+						data = [];
+
+					db.transaction( function (tx) {
+						tx.executeSql("SELECT * FROM achievements", [], function (tx, results) {
+							for(var i=0; i<results.rows.length; i++){
+								data.push(results.rows.item(i));
+							}
+							deferred.resolve(data);
+						}, function (tx, error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
+				},
+				achievementExist: function (day) {
+					var deferred = $q.defer();
+
+					db.transaction ( function (tx){
+						tx.executeSql("SELECT day FROM achievements WHERE day = '" + day + "' ", [], function (tx, results){
+							if(results.rows.length != 0){
+								deferred.resolve(true);
+							}
+							else{
+								deferred.resolve(false);
+							}
+						}, function (tx, error){
+							deferred.reject(error);
+						});
 					});
 					return deferred.promise;
 				}
 			}
 		}
 	})
-
-	.factory("AccountSavings", function () {
-
-		var chats = [{
-		    id: 0,
-		    name: 'Ben Sparrow',
-		    lastText: 'You on your way?',
-		    face: 'img/ben.png'
-	  	}, {
-		    id: 1,
-		    name: 'Max Lynx',
-		    lastText: 'Hey, it\'s me',
-		    face: 'img/max.png'
-		}, {
-		    id: 2,
-		    name: 'Adam Bradleyson',
-		    lastText: 'I should buy a boat',
-		    face: 'img/adam.jpg'
-		}, {
-		    id: 3,
-		    name: 'Perry Governor',
-		    lastText: 'Look at my mukluks!',
-		    face: 'img/perry.png'
-	  	}, {
-		    id: 4,
-		    name: 'Mike Harrington',
-		    lastText: 'This is wicked good ice cream.',
-		    face: 'img/mike.png'
-	  	}];
-
-		return {
-
-			getAll: function (){
-				return chats;
-			}
-			
-		}
-	});
-	
 })();

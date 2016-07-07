@@ -138,7 +138,7 @@
 		version: "1.0",
 		description: "Money Saving Challenge Database",
 		tables: [{
-			name: "goals",
+			name: "milestones",
 			columns: [
 				{ name: "id", type: "integer primary key" },
 				{ name: "day", type: "integer" },
@@ -151,7 +151,7 @@
 				{ name: "day", type: "integer" },
 				{ name: "amount", type: "decimal" },
 				{ name: "status", type: "text" },
-				{ name: "created_at", type: "text" }
+				{ name: "created_at", type: "integer" }
 			]
 		}, {
 			name: "settings",
@@ -189,6 +189,11 @@
 		appAlreadyUsed: 1
 	})
 
-	.constant("DAYS_COUNT", 365);
+	.constant("DAYS_COUNT", 365)
+
+	.constant("ACHIEVEMENT_STATUS",{
+		completedButDelayed: 0,
+		completed: 1
+	})
 
 })();
