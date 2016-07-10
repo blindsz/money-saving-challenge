@@ -191,6 +191,34 @@
 					});
 					return deferred.promise;
 				},
+				get: function (id) {
+					var deferred = $q.defer();
+
+					db.transaction( function (tx, results){
+						tx.executeSql("SELECT * FROM achievements WHERE id='" + id + "' ", [], function (tx, results) {
+							if(results.rows.length != 0){
+								deferred.resolve(results.rows.item(0));
+							}
+
+						}, function (tx, error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
+				},
+				getTotalAmount: function (){
+					var deferred = $q.defer();
+					db.transaction( function (tx, results){
+						tx.executeSql("SELECT SUM(amount) as total_amount from achievements", [], function (tx, results){
+							if(results.rows.length != 0){
+								deferred.resolve(results.rows.item(0));
+							}
+						}, function (tx, error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
+				},
 				achievementExist: function (day) {
 					var deferred = $q.defer();
 

@@ -1,6 +1,7 @@
 /* Empty. Add your own CSS if you like */
 /* Utilities */
-input::-moz-placeholder, textarea::-moz-placeholder{
+input::-moz-placeholder, 
+textarea::-moz-placeholder{
     color: #444;
 }
 
@@ -8,66 +9,56 @@ input::-moz-placeholder, textarea::-moz-placeholder{
     overflow: hidden;
 }
 
-.selected{
-    background-color: #5bade8;
-    color: #fff !important;
-    font-weight: normal;
-}
-.selected i.dark, .selected span.item-note{
-    color : #fff;
-}
-
 .font-normal{
     font-weight: normal !important;
 }
-.title-preferences{
-    color:#444; 
-    font-weight:bold;
+
+.bold {
+    font-weight: bold;
 }
 
-.has-subheader-custom .item-icon-left .icon,
-.has-subheader-custom .item-icon-right .icon{
-    font-size: 43px !important;
-    color: #ffc900;
-}
-
-.item-icon-left .icon, .item-icon-right .icon{
-    font-size: 27px;
-}
-
-.item-icon-left .icon{
+.left-5.icon{
     left: 5px;
-}
-
-.item-note{
-    color: #444;
 }
 
 .font-large{
     font-size: 55px;
 }
 
-.button i.small{
-    font-size: 100%;
+.font-small.small{
+    font-size: 13px;
 }
 
-.text-center i.ion-information-circled{
-    font-size: 25px;
-    color: #444;
+.font-small.icon{
+    font-size: 22px;
 }
 
-.home-profile .icon-profile i {
-    position: absolute;
-    text-align: center;
-    right: 0px;
-    left: 0px;
-    color: #fff;
+.border-bottom{
+    border-bottom: 1px solid rgba(0,0,0,.08) !important;
 }
 
-.home-profile .row h5{
-    font-size: 16px;
-    font-weight: bold;
-    color: #5bade8;
+.border-right{
+    border-right: 1px solid #2e97e2;
+}
+
+.title.title-left.header-item{
+    left: 48px !important;
+}
+
+.milestone-selected.selected{
+    background-color: #5A6063;
+    color: #fff !important;
+    font-weight: normal;
+    border-radius: 2px;
+}
+
+.milestone-selected.selected .light-selected{
+    color : #fff !important;
+}
+
+.has-subheader-custom .item-icon-left .icon,
+.has-subheader-custom .item-icon-right .icon{
+    font-size: 33px !important;
 }
 
 .home-profile .icon-profile{
@@ -81,7 +72,23 @@ input::-moz-placeholder, textarea::-moz-placeholder{
     border: 5px solid #fff;
 }
 
-.home-profile .current, .home-profile .next{
+.home-profile .icon-profile i, 
+.menu-profile .icon-profile i{
+    position: absolute;
+    text-align: center;
+    right: 0px;
+    left: 0px;
+    color: #fff;
+}
+
+.home-profile .row h5{
+    font-size: 16px;
+    font-weight: bold;
+    color: #5bade8;
+}
+
+.home-profile .current, 
+.home-profile .next{
     color: #444;
     font-size: 11px;
 }
@@ -108,45 +115,10 @@ input::-moz-placeholder, textarea::-moz-placeholder{
     margin: 0px auto;
 }
 
-.home-profile .current i::before, .home-profile .next i::before{
-    font-size: 16px;
-    background-color: #ffc900;
-    width:25px;
-    height: 25px;
-    border-radius: 100%;
-    line-height: 24px;
+.home-profile .current i::before,
+.home-profile .next i::before{
+    font-size: 14px;
     color: #fff;
-}
-
-.home-profile .current h4, .home-profile .next h4{
-    font-weight: bold;
-    font-size: 12px;
-}
-
-.home-profile .card{
-    margin:0px !important;
-}
-
-.title-bordered {
-    border-top: solid 2px #bbb;
-    padding-top: 30px;
-}
-
-p {
-    color: #555;
-    margin: 0 0 25px;
-}
-
-.no-border {
-    border: none;
-}
-
-.no-border-bg{
-    border: 0px;
-    border-color: transparent;
-    border-top: transparent;
-    border-bottom: transparent;
-    background-image: none !important; 
 }
 
 .border-top-bottom{
@@ -156,32 +128,31 @@ p {
     background-image: none !important; 
 }
 
-.static {
-    position: static;
-}
-
-.bold {
-    font-weight: bold;
-}
-
 .border-top {
     border-top: solid 1px #ccc;
     padding-top: 30px;
 }
 
-.blue-grey-900 {
-    background-color: #263238 !important;
+.col .currency{
+    background: #ffc900;
+    padding: 6px 10px 6px 10px;
+    border-radius: 100px;
     color: #fff;
-}
-
-/* Menu */
-
-.menu.menu-left * {
     font-weight: normal;
 }
 
-.item-radio input:checked ~ .item-content {
-    background: transparent;
+.col .settings{
+    margin-top: 7px;
+    background: #2e97e2;
+    padding: 1px;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: normal;
+}
+
+/* Menu */
+.menu.menu-left * {
+    font-weight: normal;
 }
 
 .menu-open .ion-navicon {
@@ -232,34 +203,6 @@ p {
     transform: rotate(45deg);
 }
 
-.title.title-left.header-item{
-    left: 48px !important;
-}
-
-.menu .avatar{
-    width:60px !important;
-    height:60px !important;
-    top: 40px;
-}
-
-.bar.bar-profile {
-    background-color: #5bade8;
-    height: 155px;
-    color: #fff;
-}
-
-.bar.bar-profile img{
-    box-shadow: 0 2px 5px 0 #fff;
-}
-
-.bar .profile {
-    padding-top: 35px;
-}
-
-.menu .has-header{
-    top: 155px;
-}
-
 .button-fab i{
     color: #fff;
 }
@@ -269,7 +212,7 @@ p {
     min-height: 49px !important;
 }
 
-.bar .button.button-fab, .button.button-fab{
+.bar .button.button-fab{
     width: 56px !important;
     height: 56px !important;
     border-style: solid;
@@ -282,13 +225,17 @@ p {
     left: 0px;
 }
 
-.menu-list{
-    font-size: 15px;
+.menu-list span{
+    font-size: 13px;
 }
 .menu-list i{
-    padding-right: 6px;
+    padding-left: 12px;
     color: #5bade8;
-    font-size: 20px !important;
+    font-size: 19px !important;
+}
+
+.menu-list i::before{
+    padding-bottom: 3px;
 }
 
 .bar-subheader.custom{
@@ -300,6 +247,16 @@ p {
     top: 287px !important;
 }
 
+.menu-subheader.custom{
+    height: 227px !important;
+    border: none;
+    font-size: 13px;
+}
+
+.menu-has-subheader-custom {
+    top: 227px !important;
+}
+
 .footer-bar-custom > h4{
     width: 100%;
     color: #666;
@@ -308,3 +265,17 @@ p {
     padding-top: 5px;
 }
 
+.active-menu{
+    background-color: #f8f8f8;
+}
+
+.active-menu::after{
+    content: " ";
+    position: absolute;
+    left: 0px;
+    right:0px;
+    top:0px;
+    bottom: 0px;
+    background-color: #f8f8f8;
+    border-left: 5px solid #5bade8 !important;
+}

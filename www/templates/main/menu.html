@@ -12,30 +12,59 @@
         </ion-nav-bar>
         <ion-nav-view name="main"></ion-nav-view>
     </ion-side-menu-content>
-    <ion-side-menu side="left">
-        <ion-header-bar class="bar bar-profile">
-            <img src="img/person-flat.png" class="avatar motion spin fade">
-            <div class="menu-bottom">Jared Jan Taquiso</div>
+    <ion-side-menu side="left" width="310">
+        <ion-header-bar class="bar positive-bg menu-subheader custom">
+            <div class="row padding-top">
+                <div class="col">
+                    <div class="text-center home-profile">
+                        <div class="icon-profile">
+                            <i class="icon ion-android-person font-large"></i>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                               <h3 class="light"> {{ accountInfo.name }} </h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                           <div class="col border-right">
+                                <div class="text light">MILESTONE</div>
+                                <div class="settings">
+                                    <i class="icon ion-android-arrow-forward light"></i> <strong>{{ accountInfo.currentMilestoneAmount | currency }}</strong>
+                                </div>
+                            </div>
+                            <div class="col border-right">
+                                <div class="text light">ACCOUNT</div>
+                                <div class="settings">
+                                    <i class="icon ion-android-arrow-forward light"></i> <strong>Random</strong>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="text light">SAVINGS</div>
+                                <div class="settings">
+                                    <i class="icon ion-android-arrow-forward light"></i> <strong>{{ (accountInfo.totalAmount === null) ? 0.00 : accountInfo.totalAmount  | currency}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ion-header-bar>
-        <ion-content>
+        <ion-content class="menu-has-subheader-custom">
             <ion-list>
-                <ion-item nav-clear class="menu-list" menu-close ui-sref="app.home">
-                    <i class="icon ion-android-home bg-menu"></i> Home
+                <ion-item nav-clear class="menu-list item-icon-left" menu-close ui-sref="app.home" ui-sref-active="active-menu">
+                    <i class="icon left-5 ion-android-home bg-menu"></i> <span>Home</span>
                 </ion-item>
-                <ion-item nav-clear class="menu-list" ui-sref="app.achievements" menu-close href="#/app">
-                    <i class="icon ion-star bg-menu"></i> Achievements
+                <ion-item nav-clear class="menu-list item-icon-left" ui-sref="app.achievements" ui-sref-active="active-menu" menu-close>
+                    <i class="icon left-5 ion-star bg-menu"></i> <span>Achievements</span>
                 </ion-item>
-                <ion-item nav-clear class="menu-list" ui-sref="app.missed-milestones" menu-close href="#/app">
-                    <i class="icon ion-ribbon-b bg-menu"></i> Missed Milestones
+                <ion-item nav-clear class="menu-list item-icon-left" ui-sref="app.missed-milestones" ui-sref-active="active-menu" menu-close>
+                    <i class="icon left-5 ion-ribbon-b bg-menu"></i> <span>Missed Milestones</span>
                 </ion-item>
-                <ion-item nav-clear class="menu-list" ui-sref="app.currency" menu-close href="#/app">
-                    <i class="icon ion-social-usd bg-menu"></i> Currency
+                <ion-item nav-clear class="menu-list item-icon-left" ui-sref="app.settings" ui-sref-active="active-menu" menu-close>
+                    <i class="icon left-5 ion-android-settings bg-menu"></i> <span>Settings</span>
                 </ion-item>
-                <ion-item nav-clear class="menu-list" ui-sref="app.settings" menu-close href="#/app">
-                    <i class="icon ion-android-settings bg-menu"></i> Settings
-                </ion-item>
-                <ion-item nav-clear class="menu-list" ui-sref="app.about" menu-close href="#/app">
-                    <i class="icon ion-information-circled bg-menu"></i> About
+                <ion-item nav-clear class="menu-list item-icon-left" ui-sref="app.about" ui-sref-active="active-menu" menu-close>
+                    <i class="icon left-5 ion-information-circled bg-menu"></i> <span>About</span>
                 </ion-item>
             </ion-list>
         </ion-content>

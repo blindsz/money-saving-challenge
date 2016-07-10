@@ -22,6 +22,8 @@ $positive:                        #5bade8 !default;
 $dark:                            #5A6063 !default;
 $bar-height: 50px;
 $popup-width: 346px;
+$popup-background-color: rgba(255,255,255,1);
+
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";

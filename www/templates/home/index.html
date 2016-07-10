@@ -10,14 +10,14 @@
 					  	<div class="col current">
 					  		<div class="text">Current Milestone</div>
 					  		<div>
-					  			<i class="icon ion-ribbon-b"> </i> <strong>{{ accountInfo.currentMilestoneAmount | currency }}</strong>
+					  			 <span class="currency"><i class="icon ion-android-star-half"></i> {{ accountInfo.currentMilestoneAmount | currency }}</span>
 					  		</div>
 					  	</div>
-					  	<div class="col profile-account"><h4 class="text">{{ accountInfo.name }}</h4><h5>$667.95</h5></div>
+					  	<div class="col profile-account"><h4 class="text">{{ accountInfo.name }}</h4><h5>{{ (accountInfo.totalAmount === null) ? 0.00 : accountInfo.totalAmount  | currency}}</h5></div>
 					  	<div class="col next">
 					  		<div class="text">Next Milestone</div>
 					  		<div>
-					  			<i class="icon ion-ribbon-b"> </i> <strong>{{ accountInfo.nextMilestoneAmount | currency }}</strong>
+					  			<span class="currency"><i class="icon ion-android-star-half"></i> {{ accountInfo.nextMilestoneAmount | currency }}</span>
 					  		</div>
 					  	</div>
 				  	</div>
@@ -35,17 +35,16 @@
     </ion-header-bar>
     <ion-content class="has-subheader-custom">
     	<ion-list class="list">
-            <ion-item nav-clear menu-close collection-repeat="achievement in achievements" class="item-icon-right item-avatar">
+            <ion-item nav-clear menu-close collection-repeat="achievement in achievements" class="item-icon-right border-bottom item-avatar">
                 <img src="img/material4.jpg">
-                <h2>Milestone({{ achievement.amount | currency}})</h2>
-                <p>Added {{ achievement.created_at }}</p>
-                <i class="icon ion-ribbon-b"></i>
+                <h2>{{ achievement.day | ordinal }} Day Milestone (<strong class="positive">{{ achievement.amount | currency}}</strong>)</h2>
+                <p>Added {{ achievement.created_at | relativeTime }}</p>
+                <i class="icon energized ion-android-star-half"></i>
             </ion-item>
         </ion-list>
         <div ng-show="!achievements.length" class="row padding-top">
 		    <div class="col padding-top">
 		        <div class="text-center padding-top">
-		        	<i class="icon ion-information-circled"></i>
 		            <h5 class="font-normal">You don't have savings yet. Start saving now!</h5>
 		        </div>
 		    </div>

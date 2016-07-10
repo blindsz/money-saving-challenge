@@ -1,21 +1,14 @@
-﻿<!-- <div class="row">
-	<div class="col">
-		<div class="text-center">
-			Are you sure you want to add <strong>{{ accountInfo.currentMilestone | currency }}</strong> to your savings?
-		</div>
-	</div>
-</div> -->
-<div class="item item-divider font-normal">
-    Select a milestone you want to complete:
+﻿<div class="item item-divider font-normal">
+    <span class="dark">Select a milestone you want to complete:</span>
 </div>
 <ion-scroll direction="y" class="available-scroller" style="height:350px; overflow-y: hidden">
 	<div class="list" style="height:350px">
 		<div class="row">
 			<div class="col">
 				<div collection-repeat="item in selectedMilestones">
-				    <a class="item item-icon-left" ng-class="{'selected':$index == selectedMilestone.selectedRow}" ng-click="getSelectedMilestone($index, item)">
-				        <i class="icon ion-ribbon-b dark"> </i> <i class="icon ion-android-done energized"></i>{{ item.day | ordinal }} Milestone
-				        <span class="item-note"><strong>{{ item.amount | currency}}</strong></span>
+				    <a class="item item-icon-left milestone-selected border-bottom" ng-class="{'selected':$index == selectedMilestone.row}" ng-click="getSelectedMilestone($index, item)">
+				        <i class="icon font-small left-5 ion-ios-star-half dark light-selected"> </i> <i class="icon font-small left-5 ion-android-done energized"></i>{{ item.day | ordinal }} Milestone
+				        <span class="item-note dark light-selected">{{ item.amount | currency}}</span>
 				    </a>
 			    </div>
 			</div>

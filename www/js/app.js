@@ -56,8 +56,8 @@
 		.state('app', {
 	        url: '/app',
 	        abstract: true,
-	        templateUrl: 'templates/main/menu.html'
-	        // controller: 'MenuController'
+	        templateUrl: 'templates/main/menu.html',
+	        controller: 'MenuController'
 	    })
 
 		.state('app.preferences', {
@@ -72,6 +72,7 @@
 
 		.state('app.home', {
 	        url: '/home',
+	        cache: false,
 	        views: {
 	            'main': {
 	                templateUrl: 'templates/home/index.html',
@@ -100,16 +101,6 @@
 	        }
 	    })
 
-	    .state('app.currency', {
-	        url: '/currency',
-	        views: {
-	            'main': {
-	                templateUrl: 'templates/currency/index.html'
-	                // controller: 'CurrencyController'
-	            }
-	        }
-	    })
-
 	    .state('app.settings', {
 	        url: '/settings',
 	        views: {
@@ -130,7 +121,7 @@
 	        }
 	    });
 
-		// $urlRouterProvider.otherwise('/app/preferences');	// commented out to allow conditional routing	
+		// $urlRouterProvider.otherwise('/app/home');	// commented out to allow conditional routing	
 	})
 
 	.constant("StorageConfig", {

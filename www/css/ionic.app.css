@@ -5569,7 +5569,7 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
     max-width: 100%;
     max-height: 90%;
     border-radius: 0px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: white;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
