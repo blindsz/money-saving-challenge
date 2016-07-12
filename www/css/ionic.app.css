@@ -5565,7 +5565,7 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both; }
   .popup-container .popup {
-    width: 346px;
+    width: 341px;
     max-width: 100%;
     max-height: 90%;
     border-radius: 0px;
@@ -6402,10 +6402,11 @@ button.item.item-button-right {
 .item-divider {
   padding-top: 8px;
   padding-bottom: 8px;
+  padding-left: 18px;
   min-height: 30px;
   background-color: #f5f5f5;
   color: #222;
-  font-weight: 500; }
+  font-weight: normal; }
 
 .platform-ios .item-divider-platform,
 .item-divider-ios {

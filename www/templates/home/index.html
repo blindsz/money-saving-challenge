@@ -33,16 +33,16 @@
             <h4><i class="icon ion-android-person"></i>  Account Savings</h4>
         </div>
     </ion-header-bar>
-    <ion-content class="has-subheader-custom">
+    <ion-content class="has-subheader-custom" has-bouncing="true">
     	<ion-list class="list">
             <ion-item nav-clear menu-close collection-repeat="achievement in achievements" class="item-icon-right border-bottom item-avatar">
-                <img src="img/material4.jpg">
-                <h2>{{ achievement.day | ordinal }} Day Milestone (<strong class="positive">{{ achievement.amount | currency}}</strong>)</h2>
-                <p>Added {{ achievement.created_at | relativeTime }}</p>
-                <i class="icon energized ion-android-star-half"></i>
+                <img src="img/person-flat.png">
+                <h2 class="positive">{{ achievement.day | ordinal }} Day Milestone (<strong class="positive">{{ achievement.amount | currency}}</strong>)</h2>
+                <p>Added {{ achievement.created_at }}</p>
+                <i class="icon dark ion-android-star-outline"></i>
             </ion-item>
         </ion-list>
-        <div ng-show="!achievements.length" class="row padding-top">
+        <div ng-if="!achievements.length" class="row padding-top">
 		    <div class="col padding-top">
 		        <div class="text-center padding-top">
 		            <h5 class="font-normal">You don't have savings yet. Start saving now!</h5>

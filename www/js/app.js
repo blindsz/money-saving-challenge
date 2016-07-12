@@ -11,7 +11,7 @@
 		"ngCordova"
 	])
 
-	.run( function ($ionicPlatform, Storage, $state, APP_STATUS){
+	.run( function ($ionicPlatform, Storage, $state, APP_STATUS, $rootScope){
 		$ionicPlatform.ready(function () {
 			Storage.init().then( function (){
 				Storage.settings.getAll().then(function (settings){
@@ -19,10 +19,13 @@
 						$state.go("app.preferences");
 					}
 					else if(settings.app_status === APP_STATUS.appAlreadyUsed){
-						$state.go("app.home");
+						$state.go("app.missed-milestones");
 					}
 				});
 			});
+		});
+		$ionicPlatform.on('resume', function() {
+		    $rootScope.$broadcast('onResume');
 		});
 	})
 

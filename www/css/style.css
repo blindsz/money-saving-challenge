@@ -21,8 +21,16 @@ textarea::-moz-placeholder{
     left: 5px;
 }
 
+.left-15{
+    left: 15px !important;
+}
+
 .font-large{
     font-size: 55px;
+}
+
+.font-small{
+    font-size: 17px;
 }
 
 .font-small.small{
@@ -58,7 +66,7 @@ textarea::-moz-placeholder{
 
 .has-subheader-custom .item-icon-left .icon,
 .has-subheader-custom .item-icon-right .icon{
-    font-size: 33px !important;
+    font-size: 42px !important;
 }
 
 .home-profile .icon-profile{
@@ -118,7 +126,8 @@ textarea::-moz-placeholder{
 .home-profile .current i::before,
 .home-profile .next i::before{
     font-size: 14px;
-    color: #fff;
+    color: #5A6063;
+    margin-top: 10px;
 }
 
 .border-top-bottom{
@@ -131,6 +140,11 @@ textarea::-moz-placeholder{
 .border-top {
     border-top: solid 1px #ccc;
     padding-top: 30px;
+}
+
+.col .currency i.icon::before{
+    position: relative;
+    top:1px;
 }
 
 .col .currency{
@@ -278,4 +292,34 @@ textarea::-moz-placeholder{
     bottom: 0px;
     background-color: #f8f8f8;
     border-left: 5px solid #5bade8 !important;
+}
+
+
+/*Setting Page*/
+.item-checkbox{
+    padding-left: 17px !important;
+}
+
+.item-checkbox .checkbox{
+    left: inherit !important;
+}
+
+.item-divider.settings{
+    line-height: 25px;
+    font-size: 16px;
+    border:none;
+}
+
+.card.settings{
+    border-radius: 4px;
+}
+
+/*missed milestone*/
+
+.card .item.item-avatar{
+    min-height: 48px;
+}
+
+.item-input-wrapper{
+    padding:8px;
 }

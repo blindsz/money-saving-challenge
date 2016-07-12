@@ -12,7 +12,7 @@
         </ion-nav-bar>
         <ion-nav-view name="main"></ion-nav-view>
     </ion-side-menu-content>
-    <ion-side-menu side="left" width="310">
+    <ion-side-menu side="left" width="300">
         <ion-header-bar class="bar positive-bg menu-subheader custom">
             <div class="row padding-top">
                 <div class="col">
@@ -35,7 +35,8 @@
                             <div class="col border-right">
                                 <div class="text light">ACCOUNT</div>
                                 <div class="settings">
-                                    <i class="icon ion-android-arrow-forward light"></i> <strong>Random</strong>
+                                    <i class="icon ion-android-arrow-forward light"></i> <strong>
+                                    {{ (accountInfo.acountType == 1) ? ('IN-ORDER') : (accountInfo.acountType == 2) ? ('IN-REVERSE') : ((accountInfo.acountType == 3) ? ('RANDOM') : (''))}} </strong>
                                 </div>
                             </div>
                             <div class="col">

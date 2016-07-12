@@ -1,3 +1,60 @@
 ﻿<ion-view view-title="Settings">
-	
+	<ion-content class="stable-bg">
+        <div class="item-divider settings font-normal dark stable-bg padding-top">
+            <i class="icon ion-android-arrow-forward"></i>  Account Details
+        </div>
+		<div class="card settings">
+			<a class="item item-icon-left border-bottom">
+				<i class="icon positive ion-android-person">  </i> 
+                <h2 class="dark padding-left"> Account Name</h2>
+                <p class="padding-left"> Jared Jan</p>
+            </a>
+            <a class="item item-icon-left border-bottom">
+            	<i class="icon positive ion-person-stalker">  </i> 
+                <h2 class="dark padding-left">Account Type</h2>
+                <p class="padding-left">Random</p>
+            </a>
+            <a class="item item-icon-left border-bottom">
+            	<i class="icon positive ion-android-calendar">  </i> 
+                <h2 class="dark padding-left">Date Started</h2>
+                <p class="padding-left">Random</p>
+            </a>
+            <a class="item item-icon-left">
+            	<i class="icon positive ion-ios-calendar">  </i> 
+                <h2 class="dark padding-left">Date Finish</h2>
+                <p class="padding-left">Random</p>
+            </a>
+		</div>
+        <div class="item-divider settings font-normal dark stable-bg padding-top">
+            <i class="icon ion-android-arrow-forward"></i>  Daily Reminder
+        </div>
+		<div class="card settings">
+        	<ion-toggle toggle-class="toggle-positive">Reminder</ion-toggle>
+        	<div class="border-bottom">
+				<a class="item item-icon-right">
+                	<i class="icon positive ion-android-alarm-clock">  </i> 
+                    <h2 class="dark">Schedule Time</h2>
+                    <p class="dark">Random</p>
+                </a>
+            </div>			    	
+	    	<ion-toggle toggle-class="toggle-positive">Follow Up</ion-toggle>
+        	<div>
+				<a class="item item-icon-right">
+                	<i class="icon positive ion-android-alarm-clock">  </i> 
+                    <h2 class="dark">Schedule Time</h2>
+                    <p class="dark">Random</p>
+                </a>
+            </div>		    	
+        </div>
+        <div class="item-divider settings font-normal dark stable-bg padding-top">
+            <i class="icon ion-android-arrow-forward"></i>  Account Preferences
+        </div>
+        <div class="card settings dark">
+        	<ion-list>
+			  	<ion-checkbox ng-model="filter.red" class="border-bottom">Red</ion-checkbox>
+			  	<ion-checkbox ng-model="filter.yellow" class="border-bottom">Yellow</ion-checkbox>
+			  	<ion-checkbox ng-model="filter.pink">Pink</ion-checkbox>
+			</ion-list>
+        </div>
+    </ion-content>
 </ion-view>
