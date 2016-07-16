@@ -1,5 +1,8 @@
 ﻿<ion-view view-title="{{ 'Hi ' + accountInfo.name + '!'}}">
-	<ion-header-bar class="bar bar-subheader custom">
+	<ion-nav-buttons side="right">
+	    <button class="button button-icon button-clear ion-refresh"></button>
+	</ion-nav-buttons>
+	<ion-header-bar class="bar bar-subheader custom positive-bg">
 		<div class="row">
 		    <div class="col">
 		        <div class="text-center home-profile">
@@ -13,7 +16,7 @@
 					  			 <span class="currency"><i class="icon ion-android-star-half"></i> {{ accountInfo.currentMilestoneAmount | currency }}</span>
 					  		</div>
 					  	</div>
-					  	<div class="col profile-account"><h4 class="text">{{ accountInfo.name }}</h4><h5>{{ (accountInfo.totalAmount === null) ? 0.00 : accountInfo.totalAmount  | currency}}</h5></div>
+					  	<div class="col profile-account"><h4 class="text">{{ accountInfo.name }}</h4><h5 class="light">{{ (accountInfo.totalAmount === null) ? 0.00 : accountInfo.totalAmount  | currency}}</h5></div>
 					  	<div class="col next">
 					  		<div class="text">Next Milestone</div>
 					  		<div>
@@ -26,16 +29,16 @@
 		</div>
 		<div class="bar bar-footer bar-stable footer-bar-custom border-top-bottom">
 			<div class="buttons buttons-right">
-		        <button class="button button-positive button-fab" ng-click="completeCurrentMilestone();">
+		        <button class="button button-positive button-fab" ng-click="completeCurrentMilestone()">
 		            <i class="icon ion-android-add"></i>
 		        </button>
 		    </div>
-            <h4><i class="icon ion-android-person"></i>  Account Savings</h4>
+            <h4><i class="icon ion-android-arrow-forward"></i>  Account Savings</h4>
         </div>
     </ion-header-bar>
-    <ion-content class="has-subheader-custom" has-bouncing="true">
+    <ion-content class="has-subheader-custom light-bg" has-bouncing="true">
     	<ion-list class="list">
-            <ion-item nav-clear menu-close collection-repeat="achievement in achievements" class="item-icon-right border-bottom item-avatar">
+            <ion-item nav-clear menu-close collection-repeat="achievement in achievements" class="item-icon-right border-bottom item-avatar home-milestone-list">
                 <img src="img/person-flat.png">
                 <h2 class="positive">{{ achievement.day | ordinal }} Day Milestone (<strong class="positive">{{ achievement.amount | currency}}</strong>)</h2>
                 <p>Added {{ achievement.created_at }}</p>
@@ -45,6 +48,7 @@
         <div ng-if="!achievements.length" class="row padding-top">
 		    <div class="col padding-top">
 		        <div class="text-center padding-top">
+		        	<i class="icon dark ion-alert-circled font-small"></i>
 		            <h5 class="font-normal">You don't have savings yet. Start saving now!</h5>
 		        </div>
 		    </div>

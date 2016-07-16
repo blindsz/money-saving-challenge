@@ -8,6 +8,7 @@
 		"ionic-material",
 		"ionic-toast",
 		"ngResource",
+		"ion-datetime-picker",
 		"ngCordova"
 	])
 
@@ -19,7 +20,7 @@
 						$state.go("app.preferences");
 					}
 					else if(settings.app_status === APP_STATUS.appAlreadyUsed){
-						$state.go("app.missed-milestones");
+						$state.go("app.settings");
 					}
 				});
 			});
@@ -84,6 +85,25 @@
 	        }
 	    })
 
+		.state('app.home.random-milestone-list', {
+            url: "/random-milestone-list",
+            params: {
+		     	milestones: null,
+		     	currentMilestoneDay: null,
+		     	totalAmount: null,
+				achievements: null,
+				ordinal: null,
+				toast: null,
+				relativeTime: null
+		   	},
+            views: {
+                'main@app': {
+                    templateUrl: "templates/home/milestones-list.html",
+                    controller: 'HomeRandomMilestoneListController'
+                }
+            }
+        })
+
 		.state('app.achievements', {
 	        url: '/achievements',
 	        views: {
@@ -96,20 +116,37 @@
 
 	    .state('app.missed-milestones', {
 	        url: '/missed-milestones',
+	        cache: false,
 	        views: {
 	            'main': {
-	                templateUrl: 'templates/missed-milestones/index.html'
-	                // controller: 'MissedMilestonesController'
+	                templateUrl: 'templates/missed-milestones/index.html',
+	                controller: 'MissedMilestonesController'
 	            }
 	        }
+	    })
+
+	    .state('app.missed-milestones.random-milestone-list', {
+	    	url: '/random-missed-milestone-list',
+	    	params: {
+	    		milestones: null,
+	    		selectedDay: null,
+	    		ordinal: null,
+				toast: null
+	    	},
+	    	views: {
+	    		'main@app':{
+	    			templateUrl: "templates/missed-milestones/milestones-list.html",
+	    			controller: "MissedMilestoneRandomListController"
+	    		}
+	    	}
 	    })
 
 	    .state('app.settings', {
 	        url: '/settings',
 	        views: {
 	            'main': {
-	                templateUrl: 'templates/settings/index.html'
-	                // controller: 'SettingsController'
+	                templateUrl: 'templates/settings/index.html',
+	                controller: 'SettingsController'
 	            }
 	        }
 	    })

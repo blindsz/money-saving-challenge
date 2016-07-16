@@ -32,7 +32,6 @@
 						}
 						tx.executeSql(createTablesSql);
 					}
-					// tx.executeSql("INSERT INTO achievements (id, day, amount, status, created_at) VALUES (NULL, 2, 0.02, 'completed', 'asdsa')");
 					return deferred.resolve(true);
 				});
 				return deferred.promise;
@@ -167,7 +166,7 @@
 					db.transaction ( function (tx) {
 						tx.executeSql("INSERT INTO achievements " + 
 							" (id, day, amount, status, created_at) " +
-					 " VALUES (NULL, '" + data.day +"', '" + data.amount + "', '" + ACHIEVEMENT_STATUS.completed + "', '" + moment() + "') ", [], function (tx, results){
+					 " VALUES (NULL, '" + data.day +"', '" + data.amount + "', '" + data.status + "', '" + moment() + "') ", [], function (tx, results){
 					 		deferred.resolve(results.insertId);
 						}, function (tx, error){
 							deferred.reject(error);
@@ -233,6 +232,49 @@
 						}, function (tx, error){
 							deferred.reject(error);
 						});
+					});
+					return deferred.promise;
+				}
+			},
+			missedMilestones: {
+				getAll: function () {
+					var deferred = $q.defer(),
+						data = [];
+
+					db.transaction ( function (tx) {
+						tx.executeSql("SELECT date_started FROM settings", [], function (tx, results) {
+							var dateStarted = moment(results.rows.item(0).date_started).format("DD MMM YYYY"),
+								currentDay= moment().add(1, "day").diff(new Date(dateStarted), "days");
+								
+							var checkDay = function (day){
+								tx.executeSql("SELECT * FROM achievements WHERE day = '" + day + "'  ", [], function (tx, results){
+									if(results.rows.length === 0){
+										tx.executeSql("SELECT * FROM milestones WHERE day = '" + day + "' ", [], function (tx, results){
+											for(var i=0; i<results.rows.length; i++){
+												data.push({
+													id: results.rows.item(i).id,
+													day: results.rows.item(i).day,
+													amount: results.rows.item(i).amount,
+													date_missed: moment(new Date(dateStarted)).add(results.rows.item(i).day, 'days').calendar()
+												});
+											}
+										}, function (tx, error){
+											deferred.reject(error);
+										})
+									}
+								}, function (tx, error){
+									deferred.reject(error);
+								})
+							}
+
+							for(var i=currentDay-1; i>0; i--){
+								checkDay(i);
+							}
+
+							deferred.resolve(data);
+						}, function (tx, error){
+							deferred.reject(error);
+						})
 					});
 					return deferred.promise;
 				}

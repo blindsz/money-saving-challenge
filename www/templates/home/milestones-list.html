@@ -1,0 +1,28 @@
+﻿<ion-view view-title="Select Milestone">
+	<ion-nav-buttons side="right">
+	    <button class="button button-icon button-clear ion-android-done" ng-show="selectedMilestone != undefined" ng-click="addSelectedMilestone()"></button>
+	</ion-nav-buttons>
+	<ion-header-bar class="bar bar-subheader bar-positive custom-select-milestone">
+		<div class="col">
+			<div class="bar-header item-input-inset border-radius">
+	  			<label class="item-input-wrapper light-bg">
+	    			<i class="icon ion-ios-search dark placeholder-icon"></i>
+	    			<input type="search" placeholder="Search Milestone or Amount" ng-model="search.$" ng-change="scrollTop()">
+  				</label>
+			</div>
+		</div>
+		<div class="bar bar-footer select-milestone bar-stable footer-bar-custom border-top-bottom">
+            <h4 class="font-normal"><i class="icon ion-android-arrow-forward"></i> Please select milestone you want to complete</h4>
+        </div>
+	</ion-header-bar>
+	<ion-content class="select-milestone-has-subheader-custom light-bg" has-bouncing="true">
+		<div class="list">
+		    <a class="item milestones-list item-icon-right item-avatar border-bottom" collection-repeat="milestone in selectedMilestones | filter:search" ng-class="{'selected':$index == selectedMilestone.row}" ng-click="getSelectedMilestone($index, milestone)" >
+			    <img src="img/person-flat.png">
+                <h2> {{milestone.day | ordinal}} Day Milestone</h2>
+                <p><i class="dark ion-android-arrow-forward"></i> {{ milestone.amount | currency }}</p>
+                <i class="icon dark ion-android-star-half"></i>
+		    </a>
+		</div>
+	</ion-content>
+</ion-view>

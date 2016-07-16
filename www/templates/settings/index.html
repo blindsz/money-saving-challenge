@@ -6,38 +6,38 @@
 		<div class="card settings">
 			<a class="item item-icon-left border-bottom">
 				<i class="icon positive ion-android-person">  </i> 
-                <h2 class="dark padding-left"> Account Name</h2>
-                <p class="padding-left"> Jared Jan</p>
+                <h2 class="dark padding-left"> <strong>Account Name</strong></h2>
+                <p class="padding-left"> {{ settings.accountName }}</p>
             </a>
-            <a class="item item-icon-left border-bottom">
+            <a class="item item-icon-left border-bottom" ng-disabled="true">
             	<i class="icon positive ion-person-stalker">  </i> 
-                <h2 class="dark padding-left">Account Type</h2>
-                <p class="padding-left">Random</p>
+                <h2 class="dark padding-left"> <strong>Account Type</strong></h2>
+                <p class="padding-left">{{ (settings.accountType == 1) ? ('In-order') : (accountInfo.acountType == 2) ? ('Reverse') : ((accountInfo.acountType == 3) ? ('Random') : (''))}}</p>
             </a>
-            <a class="item item-icon-left border-bottom">
+            <a class="item item-icon-left border-bottom" ng-disabled="true">
             	<i class="icon positive ion-android-calendar">  </i> 
-                <h2 class="dark padding-left">Date Started</h2>
-                <p class="padding-left">Random</p>
+                <h2 class="dark padding-left"><strong>Date Started</strong></h2>
+                <p class="padding-left">{{ settings.dateStarted }}</p>
             </a>
-            <a class="item item-icon-left">
+            <a class="item item-icon-left" ng-disabled="true">
             	<i class="icon positive ion-ios-calendar">  </i> 
-                <h2 class="dark padding-left">Date Finish</h2>
-                <p class="padding-left">Random</p>
+                <h2 class="dark padding-left"><strong>Date Finish</strong></h2>
+                <p class="padding-left">{{ settings.dateFinish }}</p>
             </a>
 		</div>
-        <div class="item-divider settings font-normal dark stable-bg padding-top">
+        <div class="item-divider settings font-normal dark stable-bg">
             <i class="icon ion-android-arrow-forward"></i>  Daily Reminder
         </div>
 		<div class="card settings">
-        	<ion-toggle toggle-class="toggle-positive">Reminder</ion-toggle>
+        	<ion-toggle toggle-class="toggle-positive"><h2 class="padding-top-small"><strong>Reminder</strong></h2></ion-toggle>
         	<div class="border-bottom">
-				<a class="item item-icon-right">
+				<a class="item item-icon-right" ion-datetime-picker time am-pm ng-model="datetimeValue">
                 	<i class="icon positive ion-android-alarm-clock">  </i> 
                     <h2 class="dark">Schedule Time</h2>
-                    <p class="dark">Random</p>
+                    <p class="dark"> {{datetimeValue| date: "H:mm"}}</p>
                 </a>
             </div>			    	
-	    	<ion-toggle toggle-class="toggle-positive">Follow Up</ion-toggle>
+	    	<ion-toggle toggle-class="toggle-positive"><h2 class="padding-top-small"><strong>Follow Up</strong></h2></ion-toggle>
         	<div>
 				<a class="item item-icon-right">
                 	<i class="icon positive ion-android-alarm-clock">  </i> 
@@ -46,14 +46,14 @@
                 </a>
             </div>		    	
         </div>
-        <div class="item-divider settings font-normal dark stable-bg padding-top">
+        <div class="item-divider settings font-normal dark stable-bg">
             <i class="icon ion-android-arrow-forward"></i>  Account Preferences
         </div>
         <div class="card settings dark">
         	<ion-list>
-			  	<ion-checkbox ng-model="filter.red" class="border-bottom">Red</ion-checkbox>
-			  	<ion-checkbox ng-model="filter.yellow" class="border-bottom">Yellow</ion-checkbox>
-			  	<ion-checkbox ng-model="filter.pink">Pink</ion-checkbox>
+			  	<ion-checkbox ng-model="filter.red" class="border-bottom"><h2>Red</h2></ion-checkbox>
+			  	<ion-checkbox ng-model="filter.yellow" class="border-bottom"><h2>Red</h2></ion-checkbox>
+			  	<ion-checkbox ng-model="filter.pink"><h2>Red</h2></ion-checkbox>
 			</ion-list>
         </div>
     </ion-content>

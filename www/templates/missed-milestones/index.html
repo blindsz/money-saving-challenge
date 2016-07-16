@@ -1,39 +1,34 @@
 ﻿<ion-view view-title="Missed Milestone">
-	<ion-content>
-		<div class="row">
-			<div class="col">
-				<div class="bar bar-header item-input-inset">
-		  			<label class="item-input-wrapper stable-bg">
-		    			<i class="icon ion-ios-search dark placeholder-icon"></i>
-		    			<input type="search" placeholder="Search">
-	  				</label>
-				</div>
+	<ion-header-bar class="bar bar-subheader bar-positive custom-missed-milestone">
+		<div class="col">
+			<div class="bar-header item-input-inset border-radius">
+	  			<label class="item-input-wrapper light-bg">
+	    			<i class="icon ion-ios-search dark placeholder-icon"></i>
+	    			<input type="search" placeholder="Search Milestone or Amount" ng-model="search.$" ng-change="scrollTop()">
+  				</label>
 			</div>
 		</div>
-		<div class="card">
-			<div class="item-divider missed-milestone font-normal dark light-bg padding-top padding-bottom">
-	            <i class="icon ion-android-arrow-forward"></i>  Please select milestone you want to complete
-	        </div>
-			<div class="list">
-			    <a class="item item-icon-right item-avatar border-bottom">
-				    <img src="img/person-flat.png">
-	                <h2 class="positive">1st Day Milestone (<strong class="positive">$0.01</strong>)</h2>
-	                <p>Added five years ago</p>
-	                <i class="icon dark ion-android-star-half"></i>
-			    </a>
-			    <a class="item item-icon-right item-avatar border-bottom">
-				    <img src="img/person-flat.png">
-	                <h2 class="positive">1st Day Milestone (<strong class="positive">$0.01</strong>)</h2>
-	                <p>Added five years ago</p>
-	                <i class="icon dark ion-android-star-half"></i>
-			    </a>
-			    <a class="item item-icon-right item-avatar border-bottom">
-				    <img src="img/person-flat.png">
-	                <h2 class="positive">1st Day Milestone (<strong class="positive">$0.01</strong>)</h2>
-	                <p>Added five years ago</p>
-	                <i class="icon dark ion-android-star-half"></i>
-			    </a>
-			</div>
+		<div class="bar bar-footer missed-milestone bar-stable footer-bar-custom border-top-bottom">
+            <h4 class="font-normal"><i class="icon ion-android-arrow-forward"></i> Choose milestone you want to catch-up</h4>
+        </div>
+	</ion-header-bar>
+	
+	<ion-content class="missed-milestone-has-subheader-custom light-bg" has-bouncing="true">
+		<div class="list">
+		    <a class="item missed-milestone item-icon-right item-avatar border-bottom" collection-repeat="milestone in missedMilestones | filter:search" ng-click="completeMilestone($index, milestone)">
+			    <img src="img/person-flat.png">
+                <h2> {{milestone.day | ordinal}} Day Milestone (<strong>{{ (accountType == 3) ?  ("Random") : (milestone.amount | currency )  }}</strong>)</h2>
+                <p>{{ milestone.date_missed }}</p>
+                <i class="icon dark ion-chevron-right"></i>
+		    </a>
+		</div>
+		<div ng-if="!missedMilestones.length" class="row padding-top">
+		    <div class="col padding-top">
+		        <div class="text-center padding-top">
+		        	<i class="icon dark ion-alert-circled font-small"></i>
+		            <h5 class="font-normal">You don't have missed milestones</h5>
+		        </div>
+		    </div>
 		</div>
 	</ion-content>
 </ion-view>
