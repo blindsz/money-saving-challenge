@@ -6,9 +6,6 @@
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
             </ion-nav-buttons>
-            <!-- <ion-nav-buttons side="right">
-                <button class="button button-icon button-clear ion-refresh"></button>
-            </ion-nav-buttons> -->
         </ion-nav-bar>
         <ion-nav-view name="main"></ion-nav-view>
     </ion-side-menu-content>
@@ -52,7 +49,7 @@
         </ion-header-bar>
         <ion-content class="menu-has-subheader-custom">
             <ion-list>
-                <ion-item nav-clear class="menu-list item-icon-left" menu-close ui-sref="app.home" ui-sref-active="active-menu">
+                <ion-item nav-clear class="menu-list item-icon-left" ui-sref="app.home" ui-sref-active="active-menu" menu-close>
                     <i class="icon left-5 ion-android-home bg-menu"></i> <span>Home</span>
                 </ion-item>
                 <ion-item nav-clear class="menu-list item-icon-left" ui-sref="app.achievements" ui-sref-active="active-menu" menu-close>

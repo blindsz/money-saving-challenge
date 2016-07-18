@@ -14,7 +14,6 @@
     <preference name="BackupWebStorage" value="none" />
     <preference name="FadeSplashScreen" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="CrosswalkAnimatable" value="true" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
