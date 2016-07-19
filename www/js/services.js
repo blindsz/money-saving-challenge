@@ -10,7 +10,7 @@
 				var deferred = $q.defer();
 
 				if(window.cordova) {
-					db = $cordovaSQLite.openDB({ name: StorageConfig.name, location: 1 ,androidDatabaseImplementation: 2, androidLockWorkaround: 1});
+					db = $cordovaSQLite.openDB({ name: StorageConfig.name, location: 2 ,androidDatabaseImplementation: 2, androidLockWorkaround: 1});
 				}
 				else {
 					db = window.openDatabase(StorageConfig.name, StorageConfig.version, StorageConfig.description, 2 * 1024 * 1024);
@@ -238,15 +238,16 @@
 			},
 			missedMilestones: {
 				getAll: function () {
-					var deferred = $q.defer(),
-						data = [];
+					var deferred = $q.defer();
+						
 
 					db.transaction ( function (tx) {
 						tx.executeSql("SELECT date_started FROM settings", [], function (tx, results) {
 							var dateStarted = moment(results.rows.item(0).date_started).format("DD MMM YYYY"),
-								currentDay= moment().add(1, "day").diff(new Date(dateStarted), "days");
-								
-							var checkDay = function (day){
+								currentDay= moment().add(1, "day").diff(new Date(dateStarted), "days"),
+								data = [];
+
+							var checkDay = function (day){								
 								tx.executeSql("SELECT * FROM achievements WHERE day = '" + day + "'  ", [], function (tx, results){
 									if(results.rows.length === 0){
 										tx.executeSql("SELECT * FROM milestones WHERE day = '" + day + "' ", [], function (tx, results){
@@ -258,10 +259,12 @@
 													date_missed: moment(new Date(dateStarted)).add(results.rows.item(i).day, 'days').calendar()
 												});
 											}
+											deferred.resolve(data);
 										}, function (tx, error){
 											deferred.reject(error);
 										})
 									}
+
 								}, function (tx, error){
 									deferred.reject(error);
 								})
@@ -271,7 +274,6 @@
 								checkDay(i);
 							}
 
-							deferred.resolve(data);
 						}, function (tx, error){
 							deferred.reject(error);
 						})

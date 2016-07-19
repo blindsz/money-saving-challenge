@@ -20,7 +20,7 @@
 						$state.go('app.preferences');
 					}
 					else if(settings.app_status === APP_STATUS.appAlreadyUsed){
-						$state.go('app.home');
+						$state.go('app.missed-milestones');
 					}
 				});
 			});
@@ -76,7 +76,6 @@
 
 		.state('app.home', {
 	        url: '/home',
-	        cache: false,
 	        views: {
 	            'main': {
 	                templateUrl: 'templates/home/index.html',
@@ -116,7 +115,6 @@
 
 	    .state('app.missed-milestones', {
 	        url: '/missed-milestones',
-	        cache: false,
 	        views: {
 	            'main': {
 	                templateUrl: 'templates/missed-milestones/index.html',

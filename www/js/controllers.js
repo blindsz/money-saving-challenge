@@ -69,32 +69,26 @@
 	})
 	
 	.controller("MenuController", function ($scope, Storage, $ionicSideMenuDelegate){
-		$scope.$on('$ionicView.beforeEnter', function(e) {
-			$scope.$watch(function () {
-    			return $ionicSideMenuDelegate.getOpenRatio();
-  			}, function (isOpen) {
-                if (isOpen == 1 || isOpen == 0){	
-                    Storage.settings.getAll().then(function (settings) {
-                    	var dateStarted = moment(settings.date_started).format("DD MMM YYYY"),
-							current = moment().add(1, "day").diff(new Date(dateStarted), "days"),
-							next = moment().add(2, "day").diff(new Date(dateStarted), "days");
-						Storage.milestones.get(current).then(function (currentMilestone) {
-							Storage.milestones.get(next).then(function (nextMilestone) {
-								Storage.achievements.getTotalAmount().then(function (totalAmount){
-									$scope.accountInfo = {
-										acountType: settings.account_type,
-										name: settings.account_name,
-										totalAmount: totalAmount.total_amount,
-										currentMilestoneDay: currentMilestone.day,
-										currentMilestoneAmount: currentMilestone.amount,
-										nextMilestoneAmount: nextMilestone.amount
-									};
-								});
-							});
+		$scope.$on('$ionicView.beforeEnter', function(event, data) {
+            Storage.settings.getAll().then(function (settings) {
+            	var dateStarted = moment(settings.date_started).format("DD MMM YYYY"),
+					current = moment().add(1, "day").diff(new Date(dateStarted), "days"),
+					next = moment().add(2, "day").diff(new Date(dateStarted), "days");
+				Storage.milestones.get(current).then(function (currentMilestone) {
+					Storage.milestones.get(next).then(function (nextMilestone) {
+						Storage.achievements.getTotalAmount().then(function (totalAmount){
+							$scope.accountInfo = {
+								acountType: settings.account_type,
+								name: settings.account_name,
+								totalAmount: totalAmount.total_amount,
+								currentMilestoneDay: currentMilestone.day,
+								currentMilestoneAmount: currentMilestone.amount,
+								nextMilestoneAmount: nextMilestone.amount
+							};
 						});
 					});
-                }
-            });
+				});
+			});
 		});
 	})
 
@@ -130,40 +124,6 @@
 	    	return input+(s[(v-20)%10]||s[v]||s[0]);
 	  	};
 		
-		$scope.$on("$ionicView.beforeEnter", function(event, data){
-		  	Storage.settings.getAll().then(function (settings) {
-				var dateStarted = moment(settings.date_started).format("DD MMM YYYY"),
-					current = moment().add(1, "day").diff(new Date(dateStarted), "days"),
-					next = moment().add(2, "day").diff(new Date(dateStarted), "days");
-
-				Storage.milestones.get(current).then(function (currentMilestone) {
-					Storage.milestones.get(next).then(function (nextMilestone) {
-						Storage.achievements.getTotalAmount().then(function (totalAmount){
-							$scope.accountInfo = {
-								accountType: settings.account_type,
-								name: settings.account_name,
-								totalAmount: totalAmount.total_amount,
-								currentMilestoneDay: currentMilestone.day,
-								currentMilestoneAmount: currentMilestone.amount,
-								nextMilestoneAmount: nextMilestone.amount
-							};
-						});
-					});
-				});
-
-				Storage.achievements.getAll().then (function (achievements){
-					$scope.achievements = [];
-					for(var i=0; i<achievements.length; i++){
-						$scope.achievements.push({
-							amount: achievements[i].amount,
-							day: achievements[i].day,
-							created_at: relativeTime(achievements[i].created_at)
-						});
-					}
-				});
-			});
-		});
-
 	  	$scope.$on("onResume", function(event, data){
 			Storage.settings.getAll().then(function (settings) {
 				var dateStarted = moment(settings.date_started).format("DD MMM YYYY"),
@@ -197,7 +157,44 @@
 				});
 			});
 		});
+	
+		$scope.$on("$ionicView.beforeEnter", function(event, data){
 
+			$ionicLoading.show({duration: 600});
+
+		  	Storage.settings.getAll().then(function (settings) {
+				var dateStarted = moment(settings.date_started).format("DD MMM YYYY"),
+					current = moment().add(1, "day").diff(new Date(dateStarted), "days"),
+					next = moment().add(2, "day").diff(new Date(dateStarted), "days");
+
+				Storage.milestones.get(current).then(function (currentMilestone) {
+					Storage.milestones.get(next).then(function (nextMilestone) {
+						Storage.achievements.getTotalAmount().then(function (totalAmount){
+							$scope.accountInfo = {
+								accountType: settings.account_type,
+								name: settings.account_name,
+								totalAmount: totalAmount.total_amount,
+								currentMilestoneDay: currentMilestone.day,
+								currentMilestoneAmount: currentMilestone.amount,
+								nextMilestoneAmount: nextMilestone.amount
+							};
+						});
+					});
+				});
+			});
+
+			Storage.achievements.getAll().then (function (achievements){
+				$scope.achievements = [];
+				for(var i=0; i<achievements.length; i++){
+					$scope.achievements.push({
+						amount: achievements[i].amount,
+						day: achievements[i].day,
+						created_at: relativeTime(achievements[i].created_at)
+					});
+				}
+			});
+		});
+		
 		$scope.completeCurrentMilestone = function() {
 			if($scope.accountInfo.accountType === ACCOUNT_TYPE.inOrder || $scope.accountInfo.accountType === ACCOUNT_TYPE.inReverse) {
 				Storage.achievements.achievementExist($scope.accountInfo.currentMilestoneDay).then( function (achievementExist) {
@@ -231,6 +228,7 @@
 											created_at: relativeTime(achievement.created_at)
 					       				});
 					       				$scope.accountInfo.totalAmount += achievement.amount;
+					       				toast( ordinal($scope.accountInfo.currentMilestoneDay) + " Milestone completed");
 					       			});
 					       		});
 					     	}
@@ -323,6 +321,7 @@
 			       				});
 			       				$scope.accountInfo.totalAmount += achievement.amount;
 			       				$scope.selectedMilestones.splice(result.selectedRow, 1);
+			       				$state.params.toast( $state.params.ordinal($scope.accountInfo.currentMilestoneDay) + " Milestone completed");
 			       				$ionicHistory.currentView($ionicHistory.backView());
 			      				$state.go('app.home', {reload:false});					       			
 			       			});
@@ -336,7 +335,7 @@
 		};
 	})
 
-	.controller("MissedMilestonesController", function ($scope, $ionicPopup, Storage, ACCOUNT_TYPE, $state, ionicToast, $cordovaToast, $ionicScrollDelegate, ACHIEVEMENT_STATUS){
+	.controller("MissedMilestonesController", function ($scope, $ionicPopup, Storage, ACCOUNT_TYPE, $state, ionicToast, $cordovaToast, $ionicScrollDelegate, ACHIEVEMENT_STATUS, $ionicLoading){
 	
 		var toast = function (message) {
 			if(window.cordova) {
@@ -365,12 +364,11 @@
 	  	};
 
 	  	$scope.$on("$ionicView.beforeEnter", function(event, data){
+
+	  		$ionicLoading.show({duration: 600});
+
 		  	Storage.missedMilestones.getAll().then( function (missedMilestones){
 				$scope.missedMilestones = missedMilestones;
-			});
-
-			Storage.milestones.getAllSelected().then( function (selectedMilestones){
-				$scope.selectedMilestones = selectedMilestones;
 			});
 
 			Storage.settings.getAll().then(function (settings) {
@@ -417,6 +415,7 @@
 					   		if(result){
 					   			Storage.achievements.add(result);
 					   			$scope.missedMilestones.splice($scope.selectedMilestone.row, 1);
+					   			toast( ordinal($scope.selectedMilestone.day) + " Milestone completed");
 					   		}
 					   	});
 					}
@@ -428,6 +427,10 @@
 				});
 			}
 			else if($scope.accountType === ACCOUNT_TYPE.random) {
+
+				Storage.milestones.getAllSelected().then( function (selectedMilestones){
+					$scope.selectedMilestones = selectedMilestones;
+				});
 
 				$scope.selectedMilestone = {
 					row: index,
@@ -469,6 +472,10 @@
 			};
 		};
 
+		$scope.scrollTop = function() {
+        	$ionicScrollDelegate.resize();  
+    	};
+
 		$scope.addSelectedMilestone = function () {
 			if($scope.selectedMilestone !== undefined){
 				$ionicPopup.show({
@@ -494,6 +501,7 @@
 			   	}).then(function(result) {
 			   		if(result){
 			   			Storage.achievements.add(result);
+			   			$state.params.toast( $state.params.ordinal($state.params.selectedDay) + " Milestone completed");
 			   			$ionicHistory.currentView($ionicHistory.backView());
 			      		$state.go('app.missed-milestones', {reload:false});
 			   		}
@@ -505,8 +513,11 @@
 		}
 	})
 	
-	.controller("SettingsController", function ($scope, Storage){
+	.controller("SettingsController", function ($ionicLoading, $scope, Storage){
 		$scope.$on("$ionicView.beforeEnter", function(event, data){
+
+			$ionicLoading.show({duration: 600});
+
 			Storage.settings.getAll().then( function (settings){
 				$scope.settings = {
 					accountName: settings.account_name,

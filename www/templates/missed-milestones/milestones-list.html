@@ -7,7 +7,7 @@
 			<div class="bar-header item-input-inset border-radius">
 	  			<label class="item-input-wrapper light-bg">
 	    			<i class="icon ion-ios-search dark placeholder-icon"></i>
-	    			<input type="search" placeholder="Search Milestone or Amount">
+	    			<input type="search" placeholder="Search Milestone or Amount" ng-model="search.$">
   				</label>
 			</div>
 		</div>
@@ -17,7 +17,7 @@
 	</ion-header-bar>
 	<ion-content class="select-milestone-has-subheader-custom light-bg">
 		<div class="list">
-		    <a class="item milestones-list item-icon-right item-avatar border-bottom" collection-repeat="milestone in selectedMilestones" ng-class="{'selected':$index == selectedMilestone.row}" ng-click="getSelectedMilestone($index, milestone)" >
+		    <a class="item milestones-list item-icon-right item-avatar border-bottom" collection-repeat="milestone in selectedMilestones | filter:search" ng-class="{'selected':$index == selectedMilestone.row}" ng-click="getSelectedMilestone($index, milestone)" >
 			    <img src="img/person-flat.png">
                 <h2> {{milestone.day | ordinal}} Day Milestone</h2>
                 <p><i class="dark ion-android-arrow-forward"></i> {{ milestone.amount | currency }}</p>

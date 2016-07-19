@@ -31,10 +31,15 @@
 		<div class="card settings">
         	<ion-toggle toggle-class="toggle-positive"><h2 class="padding-top-small"><strong>Reminder</strong></h2></ion-toggle>
         	<div class="border-bottom">
-				<a class="item item-icon-right" ion-datetime-picker time am-pm ng-model="datetimeValue">
+				<!-- <a class="item item-icon-right" ion-datetime-picker time am-pm ng-model="datetimeValue">
                 	<i class="icon positive ion-android-alarm-clock">  </i> 
                     <h2 class="dark">Schedule Time</h2>
                     <p class="dark"> {{datetimeValue| date: "H:mm"}}</p>
+                </a> -->
+                <a class="item item-icon-right" ng-model="datetimeValue">
+                    <i class="icon positive ion-android-alarm-clock">  </i> 
+                    <h2 class="dark">Schedule Time</h2>
+                    <p class="dark"> Random </p>
                 </a>
             </div>			    	
 	    	<ion-toggle toggle-class="toggle-positive"><h2 class="padding-top-small"><strong>Follow Up</strong></h2></ion-toggle>
