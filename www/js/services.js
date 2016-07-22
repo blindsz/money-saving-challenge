@@ -147,7 +147,7 @@
 						data = [];
 
 					db.transaction( function (tx){
-						tx.executeSql("SELECT * FROM milestones WHERE day NOT IN (SELECT day FROM achievements)", [], function (tx, results){
+						tx.executeSql("SELECT * FROM milestones WHERE amount NOT IN (SELECT amount FROM achievements)", [], function (tx, results){
 							for(var i=0; i<results.rows.length; i++){
 								data.push(results.rows.item(i));
 							}

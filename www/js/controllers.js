@@ -172,6 +172,7 @@
 				Storage.milestones.get(next).then(function (nextMilestone) {
 					Storage.achievements.getTotalAmount().then(function (totalAmount){
 						$scope.accountInfo = {
+							accountType: settings.account_type,
 							name: settings.account_name,
 							totalAmount: totalAmount.total_amount,
 							currentMilestoneDay: currentMilestone.day,
@@ -267,7 +268,7 @@
 	
 	.controller("HomeRandomMilestoneListController", function ($scope, Storage, $state, $ionicPopup, $ionicHistory, $ionicScrollDelegate, ACHIEVEMENT_STATUS){
 
-		$scope.$on("$ionicView.beforeEnter", function(event, data){
+		$scope.$on("$ionicView.afterEnter", function(event, data){
 			$scope.selectedMilestones = $state.params.milestones;
 			$scope.achievements = $state.params.achievements;
 			$scope.accountInfo = {
@@ -321,11 +322,10 @@
 			       				});
 			       				$scope.accountInfo.totalAmount += achievement.amount;
 			       				$scope.selectedMilestones.splice(result.selectedRow, 1);
-			       				$ionicHistory.currentView($ionicHistory.backView());					       			
+			       				$ionicHistory.currentView($ionicHistory.backView());
+			      				$state.go('app.home', {reload:false});					       			
 			       			});
 			       		});
-			      		$ionicHistory.currentView($ionicHistory.backView());
-			      		$state.go('app.home', {reload:false});
 			     	}
 			   	});
 			}
@@ -409,6 +409,7 @@
 						   	}).then(function(result) {
 						   		if(result){
 						   			Storage.achievements.add(result);
+						   			$scope.missedMilestones.splice($scope.selectedMilestone.row, 1);
 						   		}
 						   	});
 						}
@@ -447,7 +448,7 @@
 		});	
 	})
 
-	.controller("MissedMilestoneRandomListController", function ($scope, Storage, $state, $ionicPopup, ACHIEVEMENT_STATUS){
+	.controller("MissedMilestoneRandomListController", function ($scope, Storage, $state, $ionicPopup, ACHIEVEMENT_STATUS, $ionicHistory){
 		
 		$scope.$on("$ionicView.afterEnter", function(event, data){
 			$scope.selectedMilestones = $state.params.milestones;
@@ -490,6 +491,8 @@
 			   	}).then(function(result) {
 			   		if(result){
 			   			Storage.achievements.add(result);
+			   			$ionicHistory.currentView($ionicHistory.backView());
+			      		$state.go('app.missed-milestones', {reload:false});
 			   		}
 			   	});
 			}
