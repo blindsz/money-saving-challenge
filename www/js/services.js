@@ -2,7 +2,7 @@
 	angular.module("money-saving-challenge.services", [])
 
 
-	.factory("Storage", function ($q, $ionicPlatform, $cordovaSQLite, StorageConfig, APP_STATUS, DAYS_COUNT, ACCOUNT_TYPE, ACHIEVEMENT_STATUS) {
+	.factory("Storage", function ($q, $ionicPlatform, $cordovaSQLite, StorageConfig, APP_STATUS, DAYS_COUNT, ACCOUNT_TYPE, ACHIEVEMENT_STATUS, DEFAULT_REMINDER) {
 		var db;
 
 		return {
@@ -323,6 +323,54 @@
 						}, function (tx, error){
 							deferred.reject(error);
 						});
+					});
+					return deferred.promise;
+				}
+			},
+
+			reminders: {
+				setup: function () {
+					var deferred = $q.defer();
+					db.transaction ( function (tx) {
+						for(var i = 0; i<DEFAULT_REMINDER.reminders.length; i++){
+							tx.executeSql("INSERT INTO reminders " + 
+							" (id, has_reminder, reminder_name, reminder_time) " +
+						 	" VALUES (NULL, '" + DEFAULT_REMINDER.reminders[i].default + "', '" + DEFAULT_REMINDER.reminders[i].name + "', '" + null + "' ) ", [], function (tx, results){
+						 		deferred.resolve(results.insertId);
+							}, function (tx, error){
+								deferred.reject(error);
+							});
+						}
+					});
+					return deferred.promise;
+				},
+
+				getAll: function (){
+					var deferred = $q.defer(),
+						data = [];
+
+					db.transaction( function (tx) {
+						tx.executeSql("SELECT * FROM reminders ORDER BY id", [], function (tx, results) {
+							for(var i=0; i<results.rows.length; i++){
+								data.push(results.rows.item(i));
+							}
+							deferred.resolve(data);
+						}, function (tx, error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
+				},
+
+				update: function (data) {
+					var deferred = $q.defer();
+					db.transaction( function (tx){
+						tx.executeSql("UPDATE reminders "+
+						" SET  has_reminder=  '" + data.hasReminder + "', reminder_time = '" + data.time + "' WHERE id = '" + data.id + "' ", [], function (tx, results){
+							deferred.resolve(true);
+						}, function (tx, error){
+							deferred.reject(error);
+						})
 					});
 					return deferred.promise;
 				}

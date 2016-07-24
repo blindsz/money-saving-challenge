@@ -29,25 +29,20 @@
             <i class="icon ion-android-arrow-forward"></i>  Daily Reminder
         </div>
 		<div class="card settings">
-        	<ion-toggle toggle-class="toggle-positive"><h2 class="padding-top-small"><strong>Reminder</strong></h2></ion-toggle>
+        	<ion-toggle toggle-class="toggle-positive" class="padding-bottom" ng-model="reminders.hasReminder"><h2 class="padding-top-small"><strong>Reminder</strong></h2></ion-toggle>
         	<div class="border-bottom">
-				<!-- <a class="item item-icon-right" ion-datetime-picker time am-pm ng-model="datetimeValue">
+				<a class="item item-icon-right padding-bottom" ng-hide="!reminders.hasReminder" ion-datetime-picker time am-pm ng-model="settings.reminderTime">
                 	<i class="icon positive ion-android-alarm-clock">  </i> 
                     <h2 class="dark">Schedule Time</h2>
-                    <p class="dark"> {{datetimeValue| date: "H:mm"}}</p>
-                </a> -->
-                <a class="item item-icon-right" ng-model="datetimeValue">
-                    <i class="icon positive ion-android-alarm-clock">  </i> 
-                    <h2 class="dark">Schedule Time</h2>
-                    <p class="dark"> Random </p>
+                    <p class="dark"> {{ (time.reminderTime === null) ? (null) : (time.reminderTime | dateFormat) }}</p>
                 </a>
             </div>			    	
-	    	<ion-toggle toggle-class="toggle-positive"><h2 class="padding-top-small"><strong>Follow Up</strong></h2></ion-toggle>
+	    	<ion-toggle toggle-class="toggle-positive" class="padding-bottom" ng-model="reminders.hasFollowUpReminder"><h2 class="padding-top-small"><strong>Follow Up</strong></h2></ion-toggle>
         	<div>
-				<a class="item item-icon-right">
-                	<i class="icon positive ion-android-alarm-clock">  </i> 
+				<a class="item item-icon-right padding-bottom" ng-hide="!reminders.hasFollowUpReminder" ion-datetime-picker time am-pm ng-model="settings.followUpReminderTime">
+                    <i class="icon positive ion-android-alarm-clock">  </i> 
                     <h2 class="dark">Schedule Time</h2>
-                    <p class="dark">Random</p>
+                    <p class="dark"> {{ (time.followUpReminderTime === null) ? (null) : (time.followUpReminderTime | dateFormat) }}</p>
                 </a>
             </div>		    	
         </div>

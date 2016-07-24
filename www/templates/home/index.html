@@ -13,14 +13,14 @@
 					  	<div class="col current">
 					  		<div class="text">Current Milestone</div>
 					  		<div>
-					  			 <span class="currency"><i class="icon ion-android-star-half"></i> {{ (accountInfo.accountType != 3) ? (accountInfo.currentMilestoneAmount | currency):'Random'}}</span>
+					  			 <span class="currency"><i class="icon ion-android-star-half light"></i> {{ (accountInfo.accountType != 3) ? (accountInfo.currentMilestoneAmount | currency):'Random'}}</span>
 					  		</div>
 					  	</div>
 					  	<div class="col profile-account"><h4 class="text">{{ accountInfo.name }}</h4><h5 class="light">{{ (accountInfo.totalAmount === null) ? 0.00 : accountInfo.totalAmount  | currency}}</h5></div>
 					  	<div class="col next">
 					  		<div class="text">Next Milestone</div>
 					  		<div>
-					  			<span class="currency"><i class="icon ion-android-star-half"></i> {{ (accountInfo.accountType != 3) ? (accountInfo.nextMilestoneAmount | currency):('Random') }}</span>
+					  			<span class="currency"><i class="icon ion-android-star-half light"></i> {{ (accountInfo.accountType != 3) ? (accountInfo.nextMilestoneAmount | currency):('Random') }}</span>
 					  		</div>
 					  	</div>
 				  	</div>

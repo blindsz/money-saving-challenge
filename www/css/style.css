@@ -194,10 +194,11 @@ textarea::-moz-placeholder{
 .col .currency i.icon::before{
     position: relative;
     top:1px;
+    color:#fff;
 }
 
 .col .currency{
-    background: #ffc900;
+    background: #2e97e2;
     padding: 6px 10px 6px 10px;
     border-radius: 100px;
     color: #fff;
@@ -523,8 +524,8 @@ textarea::-moz-placeholder{
 
 .item.item-divider.stats{
     text-align: center;
-    font-size: 16px;
-    color :#444;
+    font-size: 14px;
+    color :#000;
     font-weight: normal;
     border-top: none;
     padding-top: 18px;

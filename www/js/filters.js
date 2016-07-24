@@ -7,4 +7,11 @@
 	    	return input+(s[(v-20)%10]||s[v]||s[0]);
 	  	}
 	})
+
+	.filter('dateFormat', function () {
+		return function(input) {
+	    	return moment(new Date(input)).format("H:mm");
+	  	}
+	})
+
 })();

@@ -22,7 +22,7 @@
 						$state.go('app.preferences');
 					}
 					else if(settings.app_status === APP_STATUS.appAlreadyUsed){
-						$state.go('app.achievements');
+						$state.go('app.settings');
 					}
 				});
 			});
@@ -195,16 +195,12 @@
 				{ name: "date_finish", type: "integer"}
 			]
 		}, {
-			name: "reminder",
+			name: "reminders",
 			columns: [
 				{ name: "id", type: "integer primary key" },
 				{ name: "has_reminder", type: "integer" },
-				{ name: "repeat_reminder", type: "text" },
-				{ name: "reminder_time", type: "text" },
-
-				{ name: "has_follow_up_reminder", type: "integer"},
-				{ name: "repeat_follow_up_reminder", type: "text" },
-				{ name: "follow_up_time", type: "text"}
+				{ name: "reminder_name", type: "text" },
+				{ name: "reminder_time", type: "integer" }
 			]
 		}]
 	})
@@ -225,6 +221,16 @@
 	.constant("ACHIEVEMENT_STATUS",{
 		completedButDelayed: 0,
 		completed: 1
+	})
+
+	.constant("DEFAULT_REMINDER", {
+		reminders: [{
+			name: 'daily_reminder',
+			default: 0
+		},{
+			name: 'daily_follow_up_reminder',
+			default: 0
+		}]
 	})
 
 })();

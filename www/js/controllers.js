@@ -98,6 +98,7 @@
 		   		if(result){
 			   		Storage.settings.add(result);
 			   		Storage.milestones.setup();
+			   		Storage.reminders.setup();
 			   		disableBackButtonAction();
 			   		$ionicHistory.nextViewOptions({ 
 			   			disableBack: true
@@ -711,7 +712,7 @@
 		});
 	})
 
-	.controller("SettingsController", function ($ionicLoading, $scope, Storage){
+	.controller("SettingsController", function ($ionicLoading, $scope, Storage, DEFAULT_REMINDER){
 		$scope.$on("$ionicView.beforeEnter", function(event, data){
 
 			$ionicLoading.show({duration: 600});
@@ -724,6 +725,66 @@
 					dateStarted: moment(new Date(settings.date_started)).format("MMMM Do YYYY, dddd"),
 					dateFinish: moment(new Date(settings.date_finish)).format("MMMM Do YYYY, dddd")
 				};
+			});
+
+			Storage.reminders.getAll().then(function (reminders){
+				$scope.reminders = { 
+	  				hasReminder: (reminders[0].has_reminder === 0) ? false : true,
+	  				hasFollowUpReminder: (reminders[1].has_reminder === 0) ? false : true
+	  			};
+
+	  			$scope.time = {
+	  				reminderTime: (reminders[0].reminder_time === 'null') ? null : moment(new Date(reminders[0].reminder_time)),
+	  				followUpReminderTime: (reminders[1].reminder_time === 'null') ? null : moment(new Date(reminders[1].reminder_time))
+	  			}
+
+	  			$scope.$watch('settings.reminderTime', function(newVal, oldVal) {
+					if(newVal !== undefined){
+						Storage.reminders.update({
+				 			id: 1,
+				 			time: moment(new Date(newVal)).valueOf(),
+				 			hasReminder: ($scope.reminders.hasReminder === true) ? 1 : 0
+				 		}).then(function (){
+				 			$scope.time.reminderTime = newVal;
+				 		});
+				 	}
+			    });
+
+			    $scope.$watch('settings.followUpReminderTime', function(newVal, oldVal) {
+			    	if(newVal !== undefined){
+						Storage.reminders.update({
+				 			id: 2,
+				 			time: moment(new Date(newVal)).valueOf(),
+				 			hasReminder: ($scope.reminders.hasFollowUpReminder === true) ? 1 : 0
+				 		}).then(function (){
+				 			$scope.time.followUpReminderTime = newVal;
+				 		});
+				 	}
+			    });
+
+				$scope.$watch('reminders.hasReminder', function(newVal, oldVal) {
+					if($scope.time.reminderTime !== null){
+				        Storage.reminders.update({
+				 			id: 1,
+				 			time: moment(new Date($scope.time.reminderTime)).valueOf(),
+				 			hasReminder: (newVal === true) ? 1 : 0
+				 		}).then(function (){
+				 			$scope.reminders.hasReminder = newVal;
+				 		});
+				 	}
+			    });
+
+				$scope.$watch('reminders.hasFollowUpReminder', function(newVal, oldVal) {
+					if($scope.time.followUpReminderTime !== null){
+				        Storage.reminders.update({
+				 			id: 2,
+				 			time: moment(new Date($scope.time.followUpReminderTime)).valueOf(),
+				 			hasReminder: (newVal === true) ? 1 : 0
+				 		}).then(function (){
+				 			$scope.reminders.hasFollowUpReminder = newVal;
+				 		});
+				 	}
+			    });
 			});
 		});
 	})
