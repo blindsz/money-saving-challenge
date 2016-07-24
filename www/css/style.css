@@ -92,6 +92,10 @@ textarea::-moz-placeholder{
     border-right: 1px solid #2e97e2;
 }
 
+.border-right-stable{
+    border-right: 1px solid rgba(0,0,0,.08) !important;
+}
+
 .border-all{
     border:1px solid #E9E9E9;
 }
@@ -470,3 +474,68 @@ textarea::-moz-placeholder{
     color: #444 !important;
 }
 
+/* stats */
+.legend-title{
+    fill: #5A6063 !important;
+    font-size: 12px !important;
+}
+
+.legend-value{
+    font-weight: bold;
+    fill: #5bade8 !important;
+     font-size: 30px !important; 
+}
+
+#arc_1{
+    fill: #5bade8 !important;
+}
+
+.stats .col{
+    text-align: center;
+    background-color: #fff;
+}
+
+.stats .text h3{
+    background-color: #5bade8;
+    width: 120px;
+    margin: 0px auto;
+    border-radius: 100px;
+    padding:7px;
+    color:#fff;
+    min-height: 42px;
+}
+
+.item.stats .item-note{
+    color: #5bade8;
+    font-size: 40px;
+    position: absolute;
+    right: 18px;
+    top: 28px;
+}
+
+.item.stats .item-note.medium{
+    color: #5bade8 !important;
+    font-size: 25px !important;
+    position: absolute;
+    right: 18px;
+    top: 23px;
+}
+
+.item.item-divider.stats{
+    text-align: center;
+    font-size: 16px;
+    color :#444;
+    font-weight: normal;
+    border-top: none;
+    padding-top: 18px;
+}
+
+.item.item-avatar.stats{
+    min-height: 76px;
+    padding-left: 70px;
+}
+
+.item.item-avatar.stats i{
+    font-size: 40px;
+    color:#5A6063;
+}

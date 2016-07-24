@@ -1,3 +1,46 @@
 ﻿<ion-view view-title="Achievements">
-	
+	<ion-content>
+		<div class="list">
+  			<div class="item item-avatar item-icon-left border-bottom stats light-bg">
+    			<i class="icon ion-stats-bars"></i>
+    			<h2>{{achievementReports.accountName}}</h2>
+    			<p>{{achievementReports.dateNow}}</p>
+    			<span class="item-note"><strong>{{achievementReports.currentDay}}</strong></span>
+  			</div>
+  			<div class="item item-body border-bottom" style="background-color: #f8f8f8;">
+  				<div style="width:235px; margin:0px auto; height:235px; background-color: #fff; !important; border-radius:235px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);">
+					<pie-chart data="dataSavings" options="optionsSavings"></pie-chart>
+				</div>
+  			</div>
+  			<div class="stats border-bottom">
+	  			<div class="row padding-top">
+				  	<div class="col col-50 border-right-stable"><i class="ion-android-calendar"></i> Total Days Left</div>
+				  	<div class="col col-50"><i class="ion-android-calendar"></i> Total Missed Days</div>
+				</div>
+				<div class="row border-bottom padding-bottom">
+				  	<div class="col text col-50 border-right-stable"><strong><h3>{{ achievementReports.daysLeft }}</h3></strong></div>
+				  	<div class="col text col-50"><strong><h3>{{ (achievementReports.missedDaysCount === undefined)? '0' : achievementReports.missedDaysCount }}</h3></strong></div>
+				</div>
+				<div class="item stats item-icon-left border-bottom">
+					<div class="row">
+	                    <i class="icon ion-ribbon-a"></i> Total Milestone Completed
+	                    <span class="item-note medium"><strong>{{ achievementReports.milestonesCompleted }}</strong></span>
+                	</div>
+	            </div>
+	            <div class="item stats item-icon-left">
+					<div class="row">
+	                    <i class="icon ion-ribbon-b"></i> Total Missed Milestone Completed
+	                    <span class="item-note medium"><strong>{{ achievementReports.missedMilestoneCompleted }}</strong></span>
+                	</div>
+	            </div>
+	            
+			</div>
+			<div class="item item-divider stats">
+    			Savings Graph
+  			</div>
+			<div class="col col padding-bottom">
+				<canvas class="chart chart-line" chart-data="chartData.data" chart-labels="chartData.labels" chart-options="{animation : false}"></canvas>
+			</div>
+		</div>
+	</ion-content>
 </ion-view>

@@ -36,6 +36,19 @@
 				});
 				return deferred.promise;
 			},
+
+			tables:{
+				drop: function () {
+					var deferred = $q.defer();
+					db.transaction(function(tx) {
+						for(var i = 0; i < StorageConfig.tables.length; i++) {
+							tx.executeSql('DROP TABLE IF EXISTS '+ StorageConfig.tables[i].name +' ');
+						}
+					})
+					return deferred.promise;
+				}
+			},
+
 			settings: {
 				getAll: function(){
 					var deferred = $q.defer();
@@ -76,6 +89,7 @@
 					return deferred.promise;
 				}
 			},
+
 			milestones: {
 				setup: function (){
 					var deferred = $q.defer();
@@ -157,8 +171,22 @@
 						});
 					});
 					return deferred.promise;
+				},
+				getTotalAmount: function (){
+					var deferred = $q.defer();
+					db.transaction( function (tx, results){
+						tx.executeSql("SELECT SUM(amount) as total_amount from milestones", [], function (tx, results){
+							if(results.rows.length != 0){
+								deferred.resolve(results.rows.item(0));
+							}
+						}, function (tx, error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
 				}
 			},
+
 			achievements: {
 				add: function (data) {
 					var deferred = $q.defer();
@@ -180,6 +208,22 @@
 
 					db.transaction( function (tx) {
 						tx.executeSql("SELECT * FROM achievements ORDER BY day", [], function (tx, results) {
+							for(var i=0; i<results.rows.length; i++){
+								data.push(results.rows.item(i));
+							}
+							deferred.resolve(data);
+						}, function (tx, error){
+							deferred.reject(error);
+						});
+					});
+					return deferred.promise;
+				},
+				getAllMissed: function (){
+					var deferred = $q.defer(),
+						data = [];
+
+					db.transaction( function (tx) {
+						tx.executeSql("SELECT * FROM achievements WHERE status = '" + ACHIEVEMENT_STATUS.completedButDelayed + "' ORDER BY day", [], function (tx, results) {
 							for(var i=0; i<results.rows.length; i++){
 								data.push(results.rows.item(i));
 							}
@@ -236,47 +280,49 @@
 					return deferred.promise;
 				}
 			},
+			
 			missedMilestones: {
-				getAll: function () {
-					var deferred = $q.defer();
-						
-
+				getAll: function(missedDays){
+					var deferred = $q.defer(),
+						data = [];
 					db.transaction ( function (tx) {
-						tx.executeSql("SELECT date_started FROM settings", [], function (tx, results) {
-							var dateStarted = moment(results.rows.item(0).date_started).format("DD MMM YYYY"),
-								currentDay= moment().add(1, "day").diff(new Date(dateStarted), "days"),
-								data = [];
-
-							var checkDay = function (day){								
-								tx.executeSql("SELECT * FROM achievements WHERE day = '" + day + "'  ", [], function (tx, results){
-									if(results.rows.length === 0){
-										tx.executeSql("SELECT * FROM milestones WHERE day = '" + day + "' ", [], function (tx, results){
-											for(var i=0; i<results.rows.length; i++){
-												data.push({
-													id: results.rows.item(i).id,
-													day: results.rows.item(i).day,
-													amount: results.rows.item(i).amount,
-													date_missed: moment(new Date(dateStarted)).add(results.rows.item(i).day, 'days').calendar()
-												});
-											}
-											deferred.resolve(data);
-										}, function (tx, error){
-											deferred.reject(error);
-										})
-									}
-
+						tx.executeSql("SELECT * FROM achievements WHERE day = '" + missedDays + "'  ", [], function (tx, results){
+							if(results.rows.length === 0){
+								tx.executeSql("SELECT * FROM milestones WHERE day = '" + missedDays + "' ", [], function (tx, results){
+									data.push({
+										id: results.rows.item(0).id,
+										day: results.rows.item(0).day,
+										amount: results.rows.item(0).amount,
+										date_missed: results.rows.item(0).day
+									});
+									deferred.resolve(data);
 								}, function (tx, error){
 									deferred.reject(error);
-								})
+								});
 							}
-
-							for(var i=currentDay-1; i>0; i--){
-								checkDay(i);
+							else{
+								deferred.resolve(false);
 							}
-
 						}, function (tx, error){
 							deferred.reject(error);
-						})
+						});
+					});
+					return deferred.promise;
+				},
+				count: function (missedDays){
+					var deferred = $q.defer();
+
+					db.transaction ( function (tx) {
+						tx.executeSql("SELECT * FROM achievements WHERE day = '" + missedDays + "'  ", [], function (tx, results){
+							if(results.rows.length === 0){
+								deferred.resolve(missedDays);
+							}
+							else{
+								deferred.resolve(false);
+							}
+						}, function (tx, error){
+							deferred.reject(error);
+						});
 					});
 					return deferred.promise;
 				}

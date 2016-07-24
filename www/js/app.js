@@ -9,7 +9,9 @@
 		"ionic-toast",
 		"ngResource",
 		"ion-datetime-picker",
-		"ngCordova"
+		"ngCordova",
+		"n3-pie-chart",
+		"chart.js"
 	])
 
 	.run( function ($ionicPlatform, Storage, $state, APP_STATUS, $rootScope){
@@ -20,7 +22,7 @@
 						$state.go('app.preferences');
 					}
 					else if(settings.app_status === APP_STATUS.appAlreadyUsed){
-						$state.go('app.missed-milestones');
+						$state.go('app.achievements');
 					}
 				});
 			});
@@ -107,8 +109,8 @@
 	        url: '/achievements',
 	        views: {
 	            'main': {
-	                templateUrl: 'templates/achievements/index.html'
-	                // controller: 'AchievementsController'
+	                templateUrl: 'templates/achievements/index.html',
+	                controller: 'AchievementsController'
 	            }
 	        }
 	    })
@@ -159,7 +161,7 @@
 	        }
 	    });
 
-		// $urlRouterProvider.otherwise('/app/home');	// commented out to allow conditional routing	
+		// $urlRouterProvider.otherwise('/app/home');	// commented to allow conditional routing	
 	})
 
 	.constant("StorageConfig", {
