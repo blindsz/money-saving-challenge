@@ -22,7 +22,7 @@
 						$state.go('app.preferences');
 					}
 					else if(settings.app_status === APP_STATUS.appAlreadyUsed){
-						$state.go('app.settings');
+						$state.go('app.home');
 					}
 				});
 			});
@@ -52,6 +52,14 @@
 				StatusBar.styleLightContent();
 			}
 		});
+	})
+
+	.config(function ($logProvider, $compileProvider) {
+		var isProduction = true;
+	    if (isProduction) {
+	        $logProvider.debugEnabled(false);
+	        $compileProvider.debugInfoEnabled(false);
+	    }
 	})
 
 	.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider) {

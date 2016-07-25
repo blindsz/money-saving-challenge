@@ -110,6 +110,7 @@
 	})
 	
 	.controller("HomeController", function ($scope, $ionicHistory, $ionicModal, ionicMaterialInk, $ionicPopup, Storage, $ionicLoading, $timeout, $filter, ACCOUNT_TYPE, ionicToast, $cordovaToast, $state, ACHIEVEMENT_STATUS, DAYS_COUNT) {
+		console.log("asd");
 
 		var toast = function (message) {
 			if(window.cordova) {
@@ -712,7 +713,36 @@
 		});
 	})
 
-	.controller("SettingsController", function ($ionicLoading, $scope, Storage, DEFAULT_REMINDER){
+	.controller("SettingsController", function ($ionicLoading, $scope, Storage, DEFAULT_REMINDER, $cordovaLocalNotification, $ionicPlatform, $rootScope){
+	
+		var scheduleReminder = function (id, date, title, text){
+			$ionicPlatform.ready(function () {
+				if(ionic.Platform.isWebView()) {
+		          	$cordovaLocalNotification.schedule({
+			    		id: id,
+			    		title: title,
+					    text: text,
+					    firstAt: date,
+		    			every: "day"
+				    });
+			    }
+			});
+		};
+
+		var cancelReminder = function (id){
+			$ionicPlatform.ready(function () {
+				if(ionic.Platform.isWebView()) {
+					$cordovaLocalNotification.cancel(id);
+				}
+			});
+		};
+
+		var ordinal = function (input) {
+	    	var s = ["th","st","nd","rd"],
+	    		v = input%100;
+	    	return input+(s[(v-20)%10]||s[v]||s[0]);
+	  	};
+
 		$scope.$on("$ionicView.beforeEnter", function(event, data){
 
 			$ionicLoading.show({duration: 600});
@@ -726,19 +756,21 @@
 					dateFinish: moment(new Date(settings.date_finish)).format("MMMM Do YYYY, dddd")
 				};
 			});
+		});
 
-			Storage.reminders.getAll().then(function (reminders){
-				$scope.reminders = { 
-	  				hasReminder: (reminders[0].has_reminder === 0) ? false : true,
-	  				hasFollowUpReminder: (reminders[1].has_reminder === 0) ? false : true
-	  			};
+		Storage.reminders.getAll().then(function (reminders){
+			$scope.reminders = { 
+  				hasReminder: (reminders[0].has_reminder === 0) ? false : true,
+  				hasFollowUpReminder: (reminders[1].has_reminder === 0) ? false : true
+  			};
 
-	  			$scope.time = {
-	  				reminderTime: (reminders[0].reminder_time === 'null') ? null : moment(new Date(reminders[0].reminder_time)),
-	  				followUpReminderTime: (reminders[1].reminder_time === 'null') ? null : moment(new Date(reminders[1].reminder_time))
-	  			}
+  			$scope.time = {
+  				reminderTime: (reminders[0].reminder_time === 'null') ? null : moment(new Date(reminders[0].reminder_time)),
+  				followUpReminderTime: (reminders[1].reminder_time === 'null') ? null : moment(new Date(reminders[1].reminder_time))
+  			}
 
-	  			$scope.$watch('settings.reminderTime', function(newVal, oldVal) {
+  			$scope.$watch('settings.reminderTime', function(newVal, oldVal) {
+  				if(newVal !== oldVal) {
 					if(newVal !== undefined){
 						Storage.reminders.update({
 				 			id: 1,
@@ -746,11 +778,18 @@
 				 			hasReminder: ($scope.reminders.hasReminder === true) ? 1 : 0
 				 		}).then(function (){
 				 			$scope.time.reminderTime = newVal;
+				 			var hour = (new Date($scope.time.reminderTime)).getHours(),
+					 			minute = (new Date($scope.time.reminderTime)).getMinutes(),
+					 			date = moment().hours(hour).minutes(minute).seconds(0);
+
+							scheduleReminder(1, date._d, 'Reminder', 'Have you already completed your daily challenge?');
 				 		});
 				 	}
-			    });
+				}
+		    });
 
-			    $scope.$watch('settings.followUpReminderTime', function(newVal, oldVal) {
+		    $scope.$watch('settings.followUpReminderTime', function(newVal, oldVal) {
+		    	if (newVal !== oldVal) {
 			    	if(newVal !== undefined){
 						Storage.reminders.update({
 				 			id: 2,
@@ -758,11 +797,18 @@
 				 			hasReminder: ($scope.reminders.hasFollowUpReminder === true) ? 1 : 0
 				 		}).then(function (){
 				 			$scope.time.followUpReminderTime = newVal;
+				 			var hour = (new Date($scope.time.followUpReminderTime)).getHours(),
+					 			minute = (new Date($scope.time.followUpReminderTime)).getMinutes(),
+					 			date = moment().hours(hour).minutes(minute).seconds(0);
+
+							scheduleReminder(2, date._d, 'Follow-up Reminder', 'Have you already completed your daily challenge?');					 		
 				 		});
 				 	}
-			    });
+				}
+		    });
 
-				$scope.$watch('reminders.hasReminder', function(newVal, oldVal) {
+			$scope.$watch('reminders.hasReminder', function(newVal, oldVal) {
+				if (newVal !== oldVal) {
 					if($scope.time.reminderTime !== null){
 				        Storage.reminders.update({
 				 			id: 1,
@@ -770,11 +816,24 @@
 				 			hasReminder: (newVal === true) ? 1 : 0
 				 		}).then(function (){
 				 			$scope.reminders.hasReminder = newVal;
+				 			var hour = (new Date($scope.time.reminderTime)).getHours(),
+					 			minute = (new Date($scope.time.reminderTime)).getMinutes(),
+					 			date = moment().hours(hour).minutes(minute).seconds(0);
+
+				 			if($scope.reminders.hasReminder === true){
+								scheduleReminder(1, date._d, 'Reminder', 'Have you already completed your daily challenge?');
+				 			}
+				 			else{
+				 				cancelReminder(1);
+				 			}
+				 			
 				 		});
 				 	}
-			    });
+				}
+		    });
 
-				$scope.$watch('reminders.hasFollowUpReminder', function(newVal, oldVal) {
+			$scope.$watch('reminders.hasFollowUpReminder', function(newVal, oldVal) {
+				if (newVal !== oldVal) {
 					if($scope.time.followUpReminderTime !== null){
 				        Storage.reminders.update({
 				 			id: 2,
@@ -782,10 +841,20 @@
 				 			hasReminder: (newVal === true) ? 1 : 0
 				 		}).then(function (){
 				 			$scope.reminders.hasFollowUpReminder = newVal;
+				 			var hour = (new Date($scope.time.followUpReminderTime)).getHours(),
+					 			minute = (new Date($scope.time.followUpReminderTime)).getMinutes(),
+					 			date = moment().hours(hour).minutes(minute).seconds(0);
+
+				 			if($scope.reminders.hasFollowUpReminder === true){
+				 				scheduleReminder(2, date._d, 'Follow-up Reminder', 'Have you already completed your daily challenge?');
+				 			}
+				 			else{
+				 				cancelReminder(2);
+				 			}
 				 		});
 				 	}
-			    });
-			});
+				}
+		    });
 		});
 	})
 
