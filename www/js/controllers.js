@@ -110,7 +110,6 @@
 	})
 	
 	.controller("HomeController", function ($scope, $ionicHistory, $ionicModal, ionicMaterialInk, $ionicPopup, Storage, $ionicLoading, $timeout, $filter, ACCOUNT_TYPE, ionicToast, $cordovaToast, $state, ACHIEVEMENT_STATUS, DAYS_COUNT) {
-		console.log("asd");
 
 		var toast = function (message) {
 			if(window.cordova) {
@@ -780,7 +779,7 @@
 				 			$scope.time.reminderTime = newVal;
 				 			var hour = (new Date($scope.time.reminderTime)).getHours(),
 					 			minute = (new Date($scope.time.reminderTime)).getMinutes(),
-					 			date = moment().hours(hour).minutes(minute).seconds(0);
+					 			date = moment().add(1, 'day').hours(hour).minutes(minute).seconds(0);
 
 							scheduleReminder(1, date._d, 'Reminder', 'Have you already completed your daily challenge?');
 				 		});
@@ -799,7 +798,7 @@
 				 			$scope.time.followUpReminderTime = newVal;
 				 			var hour = (new Date($scope.time.followUpReminderTime)).getHours(),
 					 			minute = (new Date($scope.time.followUpReminderTime)).getMinutes(),
-					 			date = moment().hours(hour).minutes(minute).seconds(0);
+					 			date = moment().add(1, 'day').hours(hour).minutes(minute).seconds(0);
 
 							scheduleReminder(2, date._d, 'Follow-up Reminder', 'Have you already completed your daily challenge?');					 		
 				 		});
@@ -818,7 +817,7 @@
 				 			$scope.reminders.hasReminder = newVal;
 				 			var hour = (new Date($scope.time.reminderTime)).getHours(),
 					 			minute = (new Date($scope.time.reminderTime)).getMinutes(),
-					 			date = moment().hours(hour).minutes(minute).seconds(0);
+					 			date = moment().add(1, 'day').hours(hour).minutes(minute).seconds(0);
 
 				 			if($scope.reminders.hasReminder === true){
 								scheduleReminder(1, date._d, 'Reminder', 'Have you already completed your daily challenge?');
@@ -843,7 +842,7 @@
 				 			$scope.reminders.hasFollowUpReminder = newVal;
 				 			var hour = (new Date($scope.time.followUpReminderTime)).getHours(),
 					 			minute = (new Date($scope.time.followUpReminderTime)).getMinutes(),
-					 			date = moment().hours(hour).minutes(minute).seconds(0);
+					 			date = moment().add(1, 'day').hours(hour).minutes(minute).seconds(0);
 
 				 			if($scope.reminders.hasFollowUpReminder === true){
 				 				scheduleReminder(2, date._d, 'Follow-up Reminder', 'Have you already completed your daily challenge?');
