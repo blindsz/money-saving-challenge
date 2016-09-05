@@ -40,7 +40,7 @@
     	<ion-list class="list">
             <ion-item nav-clear menu-close collection-repeat="achievement in achievements" class="item-icon-right border-bottom item-avatar home-milestone-list">
                 <img src="img/person-flat.png">
-                <h2 class="dark">{{ achievement.day | ordinal }} Day Milestone (<strong class="dark">{{ achievement.amount | currency}}</strong>)</h2>
+                <h2 class="positive">{{ achievement.day | ordinal }} Day Milestone (<strong class="positive">{{ achievement.amount | currency}}</strong>)</h2>
                 <p>Added {{ achievement.created_at }}</p>
                 <i class="icon dark ion-android-star-outline"></i>
             </ion-item>
